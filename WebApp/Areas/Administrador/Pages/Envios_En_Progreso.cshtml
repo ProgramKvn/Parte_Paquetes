@@ -113,27 +113,30 @@
     <!--JS personal-->
     <script>
 
-        Entregar = (url) => {
-            $.ajax({
-                type: "POST",
-                contentType: false,
-                processData: false,
-                url: url,
-                headers: {
-                    '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
-                },
-                success: function () {
-                    Swal.fire({
-                        title: 'Entrega confirmado.',
-                        subtitle: 'Has confirmado la entrega de este paquete.',
-                        icon: 'success',
-                        timer: 2000
-                    }), setTimeout(function () {
-                        location.reload();
-                    }, 2000);
-                }
-            });
+        $(document).ready(function () {
+            $('#a-progreso').addClass('active');
+            Entregar = (url) => {
+                $.ajax({
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    url: url,
+                    headers: {
+                        '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
+                    },
+                    success: function () {
+                        Swal.fire({
+                            title: 'Entrega confirmado.',
+                            subtitle: 'Has confirmado la entrega de este paquete.',
+                            icon: 'success',
+                            timer: 2000
+                        }), setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    }
+                });
         }
+        });
     </script>
     @await Component.InvokeAsync("Notyf");
 }

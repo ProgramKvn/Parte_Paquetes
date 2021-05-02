@@ -1,0 +1,57 @@
+﻿@page
+@model WebApp.Areas.Administrador.Pages.PruebaModel
+@{
+    ViewData["Title"] = "Prueba";
+    Layout = "_Layout";
+}
+@section Styles{
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+}
+<div class="progress" style="height: 40px;">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<br />
+<div class="progress" style="height: 40px;">
+    <div class="progress-bar bg-primary" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="bg-danger" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+        <i class="fab fa-accessible-icon"></i>
+    </div>
+    <div class="progress-bar bg-warning" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="bg-danger" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+        <i class="fab fa-accessible-icon"></i>
+    </div>
+    <div class="progress-bar bg-info" role="progressbar" style="width: 33%" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="bg-danger" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+        <i class="fab fa-accessible-icon"></i>
+    </div>
+</div>
+@section Scripts{
+    <!-- Pager -->
+    <script src="~/js/pager.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    @await Component.InvokeAsync("Notyf");
+}
+
+if (estado_Paquete == "Pendiente") {
+                            $("#Modal_Seguimiento .modal-body").append(`
+<div class="progress" style="height: 40px;">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>`
+                            );
+                        } else if (estado_Paquete == "Envio finalizado") {
+                            $("#Modal_Seguimiento .modal-body").append(`
+<div class="progress" style="height: 40px;">
+    <div class="progress-bar bg-primary" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="bg-danger" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+        <i class="fab fa-accessible-icon"></i>
+    </div>
+    <div class="progress-bar bg-warning" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar bg-success" role="progressbar" style="width: 33%" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="bg-danger" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+        <i class="fab fa-accessible-icon"></i>
+    </div>
+</div>`
+                            );
+                        }

@@ -31,55 +31,55 @@
                 {
                     @foreach (var item in Model.Paquetes)
                     {
-                        <tr>
-                            <th scope="row">
-                                <img src="@item.String_Fotografia" alt="@item.Nombre_Fotografia()" style="width: 100px;" class="rounded" />
+                <tr>
+                    <th scope="row">
+                        <img src="@item.String_Fotografia" alt="@item.Nombre_Fotografia()" style="width: 100px;" class="rounded" />
 
-                            </th>
-                            <td>@item.Contenido_Paquete</td>
-                            <td>
-                                @if (@item.Envio_Prioridad == true)
-                                {
-                                    <span class="badge bg-warning">
-                                        <i class="fas fa-shipping-fast"></i>
-                                        Prioridad de envío
-                                    </span> }
-                                else
-                                {
-                                    <span class="badge bg-teal text-dark">
-                                        <i class="fas fa-truck"></i>
-                                        Envío normal
-                                    </span>}
-                            </td>
-                            <td>
-                                @if (@item.Estado_Paquete == "En chequeo")
-                                {
-                                    <span class="badge bg-primary">
-                                        @item.Estado_Paquete
-                                    </span> }
-                                else if (@item.Estado_Paquete == "Rechazado")
-                                {
-                                    <span class="badge bg-danger">
-                                        @item.Estado_Paquete
-                                    </span> }
-                                else if (@item.Estado_Paquete == "En progreso")
-                                {
-                                    <span class="badge bg-info text-dark">
-                                        @item.Estado_Paquete
-                                    </span> }
-                                else if (@item.Estado_Paquete == "Envio finalizado")
-                                {
-                                    <span class="badge bg-success">
-                                        @item.Estado_Paquete
-                                    </span>}
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-primary" onclick="Detalles('?handler=Detalles&Id=@item.Id')">
-                                    <i class="fas fa-clipboard-list"></i>
-                                    Más detalles
-                                </button>
-                            </td>
-                        </tr>
+                    </th>
+                    <td>@item.Contenido_Paquete</td>
+                    <td>
+                        @if (@item.Envio_Prioridad == true)
+                        {
+                <span class="badge Bg-Orange">
+                    <i class="fas fa-shipping-fast"></i>
+                    Prioridad de envío
+                </span> }
+            else
+            {
+                <span class="badge bg-light">
+                    <i class="fas fa-truck"></i>
+                    Envío normal
+                </span>}
+                    </td>
+                    <td>
+                        @if (@item.Estado_Paquete == "En chequeo")
+                        {
+                            <span class="badge bg-primary">
+                                @item.Estado_Paquete
+                            </span> }
+                        else if (@item.Estado_Paquete == "Rechazado")
+                        {
+                            <span class="badge bg-danger">
+                                @item.Estado_Paquete
+                            </span> }
+                        else if (@item.Estado_Paquete == "En progreso")
+                        {
+                            <span class="badge bg-info text-dark">
+                                @item.Estado_Paquete
+                            </span> }
+                        else if (@item.Estado_Paquete == "Envio finalizado")
+                        {
+                            <span class="badge bg-success">
+                                @item.Estado_Paquete
+                            </span>}
+                    </td>
+                    <td>
+                        <button type="button" class="btn Btn-outline-Hex" onclick="Detalles('?handler=Detalles&Id=@item.Id')">
+                            <i class="fas fa-clipboard-list"></i>
+                            <b>Más detalles</b>
+                        </button>
+                    </td>
+                </tr>
 } }
                 else
                 {
@@ -178,6 +178,7 @@
     <!--JS personal-->
     <script>
         $(document).ready(function () {
+            $('#a-rechazado').addClass('active');
             Aceptar = (url) => {
                 $.ajax({
                     type: "POST",
@@ -194,28 +195,6 @@
                             icon: 'success',
                             timer: 2000
                         }), setTimeout(function () {
-                            location.reload();
-                        }, 2000);
-                    }
-                });
-            }
-            Rechazar = (url) => {
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
-                    },
-                    success: function () {
-                        Swal.fire({
-                            title: 'Solicitud rechazada.',
-                            subtitle: 'Has negado el envío de este paquete.',
-                            icon: 'error',
-                            timer: 2000
-                        })
-                        setTimeout(function () {
                             location.reload();
                         }, 2000);
                     }
@@ -278,10 +257,6 @@
                             <button type="button" class="btn btn-success" onclick="Aceptar('?handler=Aceptar&Id=${Id}')">
                                 <i class="fas fa-clipboard-check"></i>
                                 Aceptar envío
-                            </button>
-                            <button type="button" class="btn btn-danger" onclick="Rechazar('?handler=Rechazar&Id=${Id}')">
-                                <i class="fas fa-minus-square"></i>
-                                Rechazar envío
                             </button>
                             <button class='btn btn-outline-danger' data-bs-dismiss="modal">
                             <i class="fas fa-times-circle"></i>

@@ -1,0 +1,126 @@
+﻿.Bg-Spring-Green {
+    background-color: #00b356;
+    color: #000000;
+}
+.Btn-outline-Spring-Green {
+    color: #00b356;
+    border-color: #00b356;
+    border-style: solid;
+    border-radius: 4px;
+}
+.Btn-outline-Spring-Green:hover {
+    color: #000000;
+    background-color: #00b356;
+}
+
+.Bg-Nero {
+    background-color: #222222;
+    color: #ffffff;
+}
+.Btn-outline-Nero {
+    color: #222222;
+    border-color: #222222;
+    border-style: solid;
+    border-radius: 4px;
+}
+.Btn-outline-Nero:hover {
+    color: #ffffff;
+    background-color: #222222;
+}
+
+.Bg-Wisteria {
+    background-color: #c09ee2;
+    color: #000000;
+}
+.Btn-outline-Wisteria {
+    color: #c09ee2;
+    border-color: #c09ee2;
+    border-style: solid;
+    border-radius: 4px;
+}
+.Btn-outline-Wisteria:hover {
+    color: #000000;
+    background-color: #c09ee2;
+}
+
+.Bg-Snomo {
+    background-color: #d2adf7;
+    color: #000000;
+}
+.Btn-outline-Snomo {
+    color: #d2adf7;
+    border-color: #d2adf7;
+    border-style: solid;
+    border-radius: 4px;
+}
+.Btn-outline-Snomo:hover {
+    color: #000000;
+    background-color: #d2adf7;
+}
+
+.Bg-Hex {
+    background-color: #5f93ec;
+    color: #000000;
+}
+.Btn-outline-Hex {
+    color: #5f93ec;
+    border-color: #5f93ec;
+    border-style: solid;
+    border-radius: 4px;
+}
+.Btn-outline-Hex:hover {
+    color: #000000;
+    background-color: #5f93ec;
+}
+
+.Bg-Orange {
+    background-color: #ff8c1a;
+    color: #000000;
+}
+.Btn-outline-Orange {
+    color: #ff8c1a;
+    border-color: #ff8c1a;
+    border-style: solid;
+    border-radius: 4px;
+}
+.Btn-outline-Orange:hover {
+    color: #000000;
+    background-color: #ff8c1a;
+}
+
+/*CSS para la barra de seguimiento*/
+.date {
+    font-size: 11px;
+}
+
+.divider {
+    height: 0px !important;
+    background-color: blue;
+}
+
+.track-line {
+    height: 4px !important;
+    background-color: lime !important;
+}
+.void-line {
+    height: 4px !important;
+    background-color: gray !important;
+}
+.red-line {
+    height: 4px !important;
+    background-color: red !important;
+}
+
+.big-dot {
+    height: 50px;
+    width: 50px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.big-dot i {
+    font-size: 12px;
+}

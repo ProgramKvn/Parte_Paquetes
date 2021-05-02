@@ -17,9 +17,9 @@
         Administrador de paquetes.
     </h4>
     <div>
-        <a asp-area="Paquetes" asp-page="Create" class="btn btn-outline-success">
+        <a asp-area="Paquetes" asp-page="Create" class="btn Btn-outline-Hex">
             <i class="fas fa-plus-circle"></i>
-            Agregar un nuevo envío
+            <b>Agregar un nuevo envío</b>
         </a>
     </div>
     <div class="card-body table-responsive-md p-3">
@@ -31,12 +31,10 @@
                         {
                             if (Model.UIPagination.GetSizePage == item)
                             {
-                                <option selected value="@item">@item</option>
-                            }
+            <option selected value="@item">@item</option> }
                             else
                             {
-                                <option value="@item">@item</option>
-                            }
+            <option value="@item">@item</option>}
                         }
                     </select>
                 </div>
@@ -57,7 +55,7 @@
 <section class="content">
     <div>
         <!--Card para mostrar los datos obtenidos por GET-->
-        <table class="table table-dark table-striped">
+        <table class="table table-dark table-striped table-responsive-md">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -65,7 +63,6 @@
                     <th scope="col">Tipo de envío</th>
                     <th scope="col">Estado del envío</th>
                     <th scope="col">Estado del pago</th>
-                    <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -82,68 +79,39 @@
     <td>
         @if (@item.Envio_Prioridad == true)
         {
-<span class="badge bg-warning">
+<span class="badge Bg-Orange">
     <i class="fas fa-shipping-fast"></i>
     Prioridad de envío
 </span> }
 else
 {
-<span class="badge bg-teal text-dark">
+<span class="badge bg-light">
     <i class="fas fa-truck"></i>
     Envío normal
 </span>}
     </td>
     <td>
-        @if (@item.Estado_Paquete == "Pendiente")
-        {
-        <span class="badge bg-light">
-            @item.Estado_Paquete
-        </span> }
-        else if (@item.Estado_Paquete == "En chequeo")
-        {
-        <span class="badge bg-primary">
-            @item.Estado_Paquete
-        </span> }
-        else if (@item.Estado_Paquete == "Rechazado")
-        {
-        <span class="badge bg-danger">
-            @item.Estado_Paquete
-        </span> }
-        else if (@item.Estado_Paquete == "En progreso")
-        {
-        <span class="badge bg-warning text-dark">
-            @item.Estado_Paquete
-        </span> }
-        else if (@item.Estado_Paquete == "Envio finalizado")
-        {
-        <span class="badge bg-success">
-            @item.Estado_Paquete
-        </span>}
+        <a class="btn Btn-outline-Hex" onclick="Seguir('?handler=Seguir&Id=@item.Id')">Mostrar seguimiento</a>
     </td>
     <td>
         @if (@item.Estado_Pago == true)
         {
 <span class="badge bg-light">
-    <i class="fas fa-truck"></i>
+    <i class="fas fa-money-check-alt"></i>
     Pago realizado
 </span> }
 else
 {
-<a class="btn btn-danger" style="width: 100%" onclick="Mostrar_ModalPago(@item.Id)">
-    <i class="fas fa-truck"></i>
-    Realizar pago
+<a class="btn Btn-outline-Orange text-sm" style="width: 75%" onclick="Mostrar_ModalPago(@item.Id)">
+    <i class="fas fa-money-check-alt"></i>
+    <b>Realizar pago</b>
 </a>}
     </td>
     <td>
-        <button type="button" class="btn btn-outline-info" onclick="Detalles('?handler=Select&Id=@item.Id')">
+        <button type="button" class="btn Btn-outline-Hex" onclick="Detalles('?handler=Select&Id=@item.Id')">
             <i class="fas fa-eye"></i>
             <b>Ver más detalles</b>
         </button>
-    </td>
-    <td>
-        <a class="btn btn-outline-danger" onclick="Eliminar('?handler=Eliminar&Id=@item.Id')">
-            <i class="fas fa-trash"></i>
-        </a>
     </td>
 </tr>} }
 else
@@ -162,29 +130,26 @@ else
         <ul class="pagination pagination-md m-0 float-right">
             @if (Model.Paquetes.Count > 0)
             {
-                @if (Model.UIPagination.GetPreviousPage > 0)
-                {
-                    <li class="page-item"><a class="page-link" data-page="@Model.UIPagination.GetPreviousPage"><i class="fas fa-angle-double-left"></i></a></li>
-                }
+@if (Model.UIPagination.GetPreviousPage > 0)
+{
+<li class="page-item"><a class="page-link" data-page="@Model.UIPagination.GetPreviousPage"><i class="fas fa-angle-double-left"></i></a></li>
+}
 
                 @foreach (var item in Model.UIPagination.GetPages)
                 {
-                    @if (item == Model.UIPagination.GetCurrentPage)
-                    {
-                        <li class="page-item active"><a class="page-link" data-page="@item">@item</a></li>
-                    }
-                    else
-                    {
-                        <li class="page-item"><a class="page-link" data-page="@item">@item</a></li>
-                    }
+@if (item == Model.UIPagination.GetCurrentPage)
+{
+<li class="page-item active"><a class="page-link" data-page="@item">@item</a></li>
+ }
+else
+{
+<li class="page-item"><a class="page-link" data-page="@item">@item</a></li>
+}}
 
-                }
-
-                @if (Model.UIPagination.GetNextPage <= Model.UIPagination.GetTotalPages)
-                {
-                    <li class="page-item"><a class="page-link" data-page="@Model.UIPagination.GetNextPage"><i class="fas fa-angle-double-right"></i></a></li>
-                }
-            }
+                                @if (Model.UIPagination.GetNextPage <= Model.UIPagination.GetTotalPages)
+                                {
+                <li class="page-item"><a class="page-link" data-page="@Model.UIPagination.GetNextPage"><i class="fas fa-angle-double-right"></i></a></li>
+}}
         </ul>
     </div>
     <div>
@@ -192,8 +157,6 @@ else
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalDetallesLabel">Detalles del paquete</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <!--Se mostrará la información por medio de INPUTs-->
@@ -283,6 +246,41 @@ else
             </div>
         </div>
     </div>
+    <div>
+        <div class="modal fade" id="Modal_Seguimiento" tabindex="-1" aria-labelledby="Modal_SeguimientoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="Modal_SeguimientoLabel">Detalles del seguimiento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                            <hr id="Linea_Chequeo">
+                            <div id="i_Chequeo" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+                                <i class="fab fa-accessible-icon"></i>
+                            </div>
+                            <hr id="Linea_Progreso">
+                            <div id="i_Progreso" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+                                <i class="fab fa-accessible-icon"></i>
+                            </div>
+                            <hr id="Linea_Finalizado">
+                            <div id="i_Finalizado" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <div class="d-flex flex-column align-items-start"><span>Pendiente</span></div>
+                            <div class="d-flex flex-column justify-content-center"><span>En chequeo</span></div>
+                            <div class="d-flex flex-column align-items-center"><span>En progreso</span></div>
+                            <div class="d-flex flex-column align-items-end"><span>Finalizado</span></div>
+                        </div>
+                        <div class="Si_Rechazado">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 @section Scripts{
@@ -344,10 +342,12 @@ else
                         $("#Fecha_Entrega").val(fecha_Entrega);
 
                         if (envio_Prioridad == true) {
-                            $("#div_check").attr('class', 'badge bg-warning');
+                            $("#div_check").attr('class', 'badge Bg-Orange');
+                            $("#Label_Check").attr('class', 'text-dark');
                             $("#Label_Check").text(`Con prioridad de envío`);
                         } else {
-                            $("#div_check").attr('class', 'badge bg-teal');
+                            $("#div_check").attr('class', 'badge bg-warning');
+                            $("#Label_Check").attr('class', 'text-dark');
                             $("#Label_Check").text(`Sin prioridad de envío`);
                         }
 
@@ -421,36 +421,137 @@ else
                     }
                 });
             }
+            Seguir = (url) => {
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
+                    },
+                    success: function (data) {
+                        const { estado_Paquete } = data;
+
+                        $("#Modal_Seguimiento").modal("show");
+
+                        if (estado_Paquete == "Pendiente") {
+                            $(".Si_Rechazado").empty();
+                            $("#Linea_Chequeo").attr('class', 'flex-fill void-line');
+                            $("#Linea_Progreso").attr('class', 'flex-fill void-line');
+                            $("#Linea_Finalizado").attr('class', 'flex-fill void-line');
+
+                            $("#i_Chequeo").attr('class', 'bg-warning');
+                            $("#i_Progreso").attr('class', 'bg-light');
+                            $("#i_Finalizado").attr('class', 'd-flex justify-content-center align-items-center big-dot bg-light');
+
+                            $("#i_Finalizado").empty();
+                            $("#i_Finalizado").append('<i class="fas fa-times"></i>');
+                        }
+                        else if (estado_Paquete == "En chequeo") {
+                            $(".Si_Rechazado").empty();
+                            $("#Linea_Chequeo").attr('class', 'flex-fill track-line');
+                            $("#Linea_Progreso").attr('class', 'flex-fill void-line');
+                            $("#Linea_Finalizado").attr('class', 'flex-fill void-line');
+
+                            $("#i_Chequeo").attr('class', 'bg-success');
+                            $("#i_Progreso").attr('class', 'bg-light');
+                            $("#i_Finalizado").attr('class', 'd-flex justify-content-center align-items-center big-dot bg-light');
+
+                            $("#i_Finalizado").empty();
+                            $("#i_Finalizado").append('<i class="fas fa-times"></i>');
+                        }
+                        else if (estado_Paquete == "En progreso") {
+                            $(".Si_Rechazado").empty();
+                            $("#Linea_Chequeo").attr('class', 'flex-fill track-line');
+                            $("#Linea_Progreso").attr('class', 'flex-fill track-line');
+                            $("#Linea_Finalizado").attr('class', 'flex-fill void-line');
+
+                            $("#i_Chequeo").attr('class', 'bg-success');
+                            $("#i_Progreso").attr('class', 'bg-success');
+                            $("#i_Finalizado").attr('class', 'd-flex justify-content-center align-items-center big-dot bg-light');
+
+                            $("#i_Finalizado").empty();
+                            $("#i_Finalizado").append('<i class="fas fa-times"></i>');
+                        }
+                        else if (estado_Paquete == "Envio finalizado") {
+                            $(".Si_Rechazado").empty();
+                            $("#Linea_Chequeo").attr('class', 'flex-fill track-line');
+                            $("#Linea_Progreso").attr('class', 'flex-fill track-line');
+                            $("#Linea_Finalizado").attr('class', 'flex-fill track-line');
+
+                            $("#i_Chequeo").attr('class', 'bg-success');
+                            $("#i_Progreso").attr('class', 'bg-success');
+                            $("#i_Finalizado").attr('class', 'd-flex justify-content-center align-items-center big-dot bg-success');
+
+                            $("#i_Finalizado").empty();
+                            $("#i_Finalizado").append('<i class="fas fa-check"></i>');
+                        }
+                        else if (estado_Paquete == "Rechazado") {
+                            $("#Linea_Chequeo").attr('class', 'flex-fill red-line');
+                            $("#Linea_Progreso").attr('class', 'flex-fill red-line');
+                            $("#Linea_Finalizado").attr('class', 'flex-fill red-line');
+
+                            $("#i_Chequeo").attr('class', 'bg-danger');
+                            $("#i_Progreso").attr('class', 'bg-danger');
+                            $("#i_Finalizado").attr('class', 'd-flex justify-content-center align-items-center bg-danger');
+
+                            $("#i_Finalizado").empty();
+                            $("#i_Finalizado").append('<i class="fas fa-times"></i>');
+
+                            $(".Si_Rechazado").empty();
+                            $(".Si_Rechazado").append(`
+                                <br>
+                                <div class="row mb-4">
+                                    <div class="col-sm-12">
+                                        <div class="alert alert-danger text-center" role="alert">
+                                          Envío rechazado
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
+                        }
+                    }
+                });
+            }
+
             Mostrar_ModalPago = (Id) =>
             {
                 $("#Modal_Pago").modal("show");
-                $(".footer-form").append(`
+                $("#Modal_Pago .footer-form").append(`
                     <button type="button" class="btn btn-outline-success" onclick="Pagar('?handler=Pagar&Id=${Id}')">
                         Aceptar pago
                     </button>
                 `);
             }
             $("#Modal_Pago").on('hidden.bs.modal', function () {
-                $(".footer-form").empty();
+                $("#Modal_Pago .footer-form").empty();
             });
             function Mostrar_Modal(id) {
                 let url = new URL(window.location.href);
                 let urlEdit = url.origin + url.pathname + `/Update?Id=${id}`;
-                $(".modal-footer")
+                $("#Modal_Detalles .modal-header").append(`
+                    <h5 class="modal-title" id="ModalDetallesLabel">Detalles del paquete</h5>
+                    <button class="btn btn-danger" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                    </button>`
+                );
+                $("#Modal_Detalles .modal-footer")
                     .append(`
-                            <a href="${urlEdit}" class="btn btn-outline-success">
+                            <a href="${urlEdit}" class="btn Btn-outline-Hex">
                                 <i class="fas fa-pencil-alt"></i>
-                                Editar
+                                <b>Editar</b>
                             </a>
-                            <button class='btn btn-outline-danger' data-bs-dismiss="modal">
-                            <i class="fas fa-times-circle"></i>
-                                Cerrar detalles
+                            <button class="btn btn-outline-danger" onclick="Eliminar('?handler=Eliminar&Id=${id}')">
+                                <i class="fas fa-trash"></i>
+                                Eliminar detalles
                             </button>`
                         );
                 $("#Modal_Detalles").modal("show");
             }
             $('#Modal_Detalles').on('hidden.bs.modal', function () {
-                $(".modal-footer").empty();
+                $("#Modal_Detalles .modal-header").empty();
+                $("#Modal_Detalles .modal-footer").empty();
             })
         });
     </script>

@@ -28,7 +28,7 @@ namespace WebApp.Areas.Administrador.Pages
         public List<Paquete> Paquetes { get; set; }
         public async Task OnGetAsync()
         {
-            Paquetes = await _repository.ListAsync(new Estado_Spec(new Paquete_Filter { Estado_Paquete = "En chequeo" }));
+            Paquetes = await _repository.ListAsync(new Estado_Spec(new Paquete_Filter { Estado_Paquete = "Rechazado" }));
         }
         public async Task<JsonResult> OnGetDetalles(int Id)
         {
@@ -53,7 +53,7 @@ namespace WebApp.Areas.Administrador.Pages
                 _notyfService.Warning($"El paquete, con id {Id}, no ha sido encontrado.");
                 return new JsonResult(new { aceptado = false });
             }
-            paquete.Estado_Paquete = "En progreso";
+            paquete.Estado_Paquete = "En chequeo";
             await _repository.UpdateAsync(paquete);
             return new JsonResult(new { aceptado = true });
         }

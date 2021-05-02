@@ -118,5 +118,15 @@ namespace WebApp.Areas.Paquetes.Pages
                 return new JsonResult(new { deleted = false });
             }
         }
+        public async Task<JsonResult> OnGetSeguir(int Id)
+        {
+            var paquete = await _repository.GetByIdAsync(Id);
+            if (paquete == null)
+            {
+                _notyfService.Warning($"El paquete, con id {Id}, no ha sido encontrado.");
+                return new JsonResult(new { seguimiento = false });
+            }
+            return new JsonResult(new { estado_Paquete = paquete.Estado_Paquete});
+        }
     }
 }
