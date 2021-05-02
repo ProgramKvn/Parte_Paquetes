@@ -10,22 +10,18 @@
     <Compile Remove="Areas\NewFolder2\**" />
     <Compile Remove="Areas\NewFolder3\**" />
     <Compile Remove="Areas\NewFolder\**" />
-    <Compile Remove="wwwroot\Uploads\**" />
     <Content Remove="Areas\NewFolder1\**" />
     <Content Remove="Areas\NewFolder2\**" />
     <Content Remove="Areas\NewFolder3\**" />
     <Content Remove="Areas\NewFolder\**" />
-    <Content Remove="wwwroot\Uploads\**" />
     <EmbeddedResource Remove="Areas\NewFolder1\**" />
     <EmbeddedResource Remove="Areas\NewFolder2\**" />
     <EmbeddedResource Remove="Areas\NewFolder3\**" />
     <EmbeddedResource Remove="Areas\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\Uploads\**" />
     <None Remove="Areas\NewFolder1\**" />
     <None Remove="Areas\NewFolder2\**" />
     <None Remove="Areas\NewFolder3\**" />
     <None Remove="Areas\NewFolder\**" />
-    <None Remove="wwwroot\Uploads\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +56,14 @@
 
   <ItemGroup>
     <None Remove="Areas\Administrador\Pages\Prueba.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Acount\Pages\Login.cshtml" />
+    <None Include="Areas\Acount\Pages\Shared\_LayoutAcount.cshtml" />
+    <None Include="Areas\Acount\Pages\Signin.cshtml" />
+    <None Include="Areas\Perfil\Pages\Editar.cshtml" />
+    <None Include="Areas\Perfil\Pages\Shared\_LayoutPerfil.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

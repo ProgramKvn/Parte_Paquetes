@@ -13,7 +13,7 @@ namespace ApplicationCore.Specification
     {
         public Estado_Spec(Paquete_Filter filter)
         {
-            Query.OrderBy(x => x.Contenido_Paquete).ThenByDescending(x => x.Id);
+            Query.OrderBy(x => x.Contenido_Paquete).ThenByDescending(x => x.Id_Paquete);
             if (!string.IsNullOrEmpty(filter.Estado_Paquete))
             {
                 Query.Search(x => x.Estado_Paquete, filter.Estado_Paquete);

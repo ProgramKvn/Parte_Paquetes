@@ -6,13 +6,15 @@ using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Infraestructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApp.Services;
 
 namespace WebApp.Areas.Paquetes.Pages
-{ 
+{
+    [Authorize(Roles = "Cliente")]
     public class UpdateModel : PageModel 
     {
         private readonly MyRepository<Paquete> _repository;

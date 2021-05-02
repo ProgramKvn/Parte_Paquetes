@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
@@ -8,12 +9,17 @@ using ApplicationCore.Specification;
 using ApplicationCore.Specification.Filters;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Infraestructure.Data;
+using Microsoft.AspNetCore.Authorization; 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApp.Helpers;
+using System.Security.Claims;
+using System.Security.Principal;
 using WebApp.Models;
 
 namespace WebApp.Areas.Paquetes.Pages
 {
+    [Authorize(Roles = "Cliente")]
     public class IndexModel : PageModel
     {
         private readonly MyRepository<Paquete> _repository;
@@ -33,20 +39,28 @@ namespace WebApp.Areas.Paquetes.Pages
         public Registro_Pago Registro_Pago { get; set; }
         public List<Paquete> Paquetes { get; set; }
         public UIPaginationModel UIPagination { get; set; }
+
         public async Task OnGetAsync(string searchString, int? currentPage, int? sizePage)
         {
-            var totalItems = await _repository.CountAsync(new Paquete_Spec(new Paquete_Filter { Contenido_Paquete = searchString, LoadChildren = false, IsPagingEnabled = true }));
-            UIPagination = new UIPaginationModel(currentPage, searchString, sizePage, totalItems);
+            var idUserCookie = (((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.NameIdentifier).Value);
+            int idUsuario = Convert.ToInt32(idUserCookie);
+            if (searchString != null )
+            {
+                var totalItems = await _repository.CountAsync(new Paquete_UserSpec(new Paquete_Filter { UserId = idUsuario, Contenido_Paquete = searchString, LoadChildren = false, IsPagingEnabled = true }));
+                UIPagination = new UIPaginationModel(currentPage, searchString, sizePage, totalItems);
 
-            Paquetes = await _repository.ListAsync(new Paquete_Spec(
-                new Paquete_Filter
-                { 
-                    IsPagingEnabled = true,
-                    Contenido_Paquete = UIPagination.SearchString,
-                    SizePage = UIPagination.GetSizePage,
-                    Page = UIPagination.GetCurrentPage
-                })
-                );
+                Paquetes = await _repository.ListAsync(new Paquete_Spec(
+                    new Paquete_Filter
+                    {
+                        IsPagingEnabled = true,
+                        Contenido_Paquete = UIPagination.SearchString,
+                        SizePage = UIPagination.GetSizePage,
+                        Page = UIPagination.GetCurrentPage
+                    })
+                    );
+            }
+            Paquetes = await _repository.ListAsync(new Paquete_UserSpec(new Paquete_Filter { UserId = idUsuario }));
+            
         }
         public async Task<JsonResult> OnGetSelect(int Id)
         {
@@ -103,7 +117,7 @@ namespace WebApp.Areas.Paquetes.Pages
                 paquete.Estado_Pago = true;
                 paquete.Estado_Paquete = "En chequeo";
 
-                Registro_Pago.PaqueteId = paquete.Id;
+                Registro_Pago.PaqueteId = paquete.Id_Paquete;
                 Registro_Pago.Monto_Pagado = paquete.Monto_Pagar_Prop;
 
                 await _repositoryPago.AddAsync(Registro_Pago);

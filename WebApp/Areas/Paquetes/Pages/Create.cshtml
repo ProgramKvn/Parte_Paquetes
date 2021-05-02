@@ -22,7 +22,7 @@
                 <h4 class="card-title">Nueva solicitud de envío.</h4>
             </div>
             <div class="card-body">
-                <form method="POST" asp-action="Create" autocomplete="off" enctype="multipart/form-data" >
+                <form method="POST" asp-action="Create" autocomplete="off" enctype="multipart/form-data">
                     <div class="row mb-4">
                         <div class="col">
                             <label>Fotografía del paquete</label>
@@ -88,16 +88,37 @@
                             <span asp-validation-for="Paquete.Envio_Prioridad" class="text-danger"></span>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-around;">
-                        <button type="submit" class="btn Btn-outline-Hex" id="submit">
-                            <i class="fas fa-share-square"></i>
-                            <b>Enviar solicitud</b>
-                        </button>
-                        <button type="reset" class='btn btn-outline-danger'>
-                            <i class="fas fa-dumpster"></i>
-                            <b>Vaciar campos</b>
-                        </button>
-                    </div>
+
+                    <div class="row g-3 signin">
+                        <div class="form-floating col-md">
+                            <select id="DepSelect" asp-for="Paquete.Departamento" class="form-select">
+                                <option selected disabled>Seleccionar...</option>
+                                @foreach (var item in Model.depSVs)
+                                {
+                    <option value="@item.DepName">@item.DepName</option>}
+                            </select>
+                            <label floatingSelect>Departamento</label>
+                            <span asp-validation-for="Paquete.Departamento" class="text-warning"></span>
+
+                        </div>
+                        <div class="form-floating col-md">
+                            <select id="MunSelect" class="form-select" asp-for="Paquete.Municipio">
+                                <option selected disabled>Seleccionar...</option>
+                            </select>
+                            <label>Municipio</label>
+                            <span asp-validation-for="Paquete.Municipio" class="text-warning"></span>
+
+                        </div>
+                        <div style="display: flex; justify-content: space-around;">
+                            <button type="submit" class="btn Btn-outline-Hex" id="submit">
+                                <i class="fas fa-share-square"></i>
+                                <b>Enviar solicitud</b>
+                            </button>
+                            <button type="reset" class='btn btn-outline-danger'>
+                                <i class="fas fa-dumpster"></i>
+                                <b>Vaciar campos</b>
+                            </button>
+                        </div>
                 </form>
             </div>
         </div>
@@ -114,6 +135,26 @@
             $("#submit").submit(function (e) {
                 return false;
             });
+        });
+        $(document).ready(function () {
+            $('#DepSelect').change(function () {
+                var DepName = document.getElementById('DepSelect').value;
+                console.log(DepName)
+                $.ajax({
+                    type: "GET",
+                    url: "?handler=Mun&DepName=" + DepName,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        var { munSVs } = res;
+                        $('.OptionMun').remove();
+                        $.each(munSVs, function (index, item) {
+                            $("#MunSelect").append($('<option>').text(item.munName).addClass('OptionMun'));
+                        });
+                    }
+
+                })
+            })
         });
     </script>
 }

@@ -1,0 +1,74 @@
+﻿@page
+@using System.Security.Claims;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers;
+@model WebApp.Areas.Perfil.Pages.UserProfileModel
+@{
+    ViewData["Title"] = "Inicio de sesion";
+    Layout = "_LayoutPerfil";
+}
+
+<div class="edit-container">
+    <div class="img-profile">
+    <img src="@(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Webpage).Value)" class="img-circle" alt="User Profile Image" >
+    </div>
+    <br />
+    <form method="post" asp-action="Editar" style="width:70%" enctype="multipart/form-data">
+        <div class="col-md-6 text-center m-auto">
+            <label class="txt-label text-lg-center">Cambiar foto de perfil: </label>
+            <input type="file" class="form-control" name="fileUpload" accept=".jpg, .jpeg, .png">
+        </div>
+        <br />
+        <div class="row g-2">
+            <div class="col-md-6">
+                <label class="form-label">Nombre:</label>
+                <input type="text" class="form-control" asp-for="">
+                <span asp-validation-for="" class="text-warning"></span>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Apellido:</label>
+                <input type="text" class="form-control" asp-for="">
+                <span asp-validation-for="user.Genero" class="text-warning"></span>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-md-6">
+                <label class="form-label">Telefono:</label>
+                <input type="text" class="form-control" asp-for="">
+                <span asp-validation-for="user.Genero" class="text-warning"></span>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">DUI:</label>
+                <input type="text" class="form-control" asp-for="">
+                <span asp-validation-for="user.Genero" class="text-warning"></span>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-md-6">
+                <label class="form-label">Fecha Nacimiento:</label>
+                <input type="date" class="form-control" asp-for="">
+                <span asp-validation-for="" class="text-warning"></span>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Genero:</label>
+                <select class="form-select" asp-for="">
+                    <option selected disabled>Seleccionar...</option>
+                    <option value="@ApplicationCore.Enum.Genero.Masculino">@ApplicationCore.Enum.Genero.Masculino</option>
+                    <option value="@ApplicationCore.Enum.Genero.Femenino">@ApplicationCore.Enum.Genero.Femenino</option>
+                    <option value="@ApplicationCore.Enum.Genero.Indefinido">@ApplicationCore.Enum.Genero.Indefinido</option>
+                </select>
+                <span asp-validation-for="user.Genero" class="text-warning"></span>
+            </div>
+        </div>
+        <br />
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+    </form>
+</div>
+
+<script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#a-profile').addClass('active');
+    });
+</script>

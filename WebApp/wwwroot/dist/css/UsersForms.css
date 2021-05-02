@@ -1,0 +1,90 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #1f306e;
+    background-image: url("../../img/fondo.jpeg");
+}
+
+.signin input[type="text"],
+.signin input[type="number"],
+.signin input[type="email"],
+.signin input[type="password"],
+.signin input[type="date"],
+.signin select,
+.signin textarea {
+    background-color: rgba(255,255,255,0.8);
+    color: rgba(0,0,0,0.9);
+    font-weight: 500;
+    border: solid 1px rgba(255,255,255,0.5);
+    border-radius: 5px;
+}
+
+    .signin textarea:focus {
+        background-color: transparent;
+    }
+    .signin select option {
+        color: black;
+        background-color: transparent;
+    }
+    .title-main {
+        color: rgba(255,255,255,0.8);
+        text-transform: uppercase;
+        text-align:left;
+        font-weight: bold;
+    }
+
+.txt-label {
+    color: rgba(255,255,255,0.9);
+}
+
+.title-2 {
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+}
+
+.Middle-line {
+    margin: 30px 0;
+    background-color: rgba(255,255,255,0.8);
+}
+
+.bg-form-container{
+    background-color: rgba(255,255,255,0.1);
+    height: auto;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    border: solid 1px rgba(255,255,255,0.5);
+    border-radius: 5px;
+    box-shadow: 0 10px 20px 5px rgba(0,0,0,0.5);
+}
+
+.btn-custom {
+    background-color: #c7417b !important;
+    border-color: #8f3b76;
+}
+
+    .btn-custom:hover {
+        background-color: #f5477e !important;
+        border-color: #8f3b76;
+    }
+
+.a-custom {
+    color: rgba(255,255,255,0.8);
+    text-decoration:none;
+}
+
+    .a-custom:hover {
+        color: #f5477e;
+        text-decoration: none;
+    }
+
+.check-custom input:checked {
+    background-color: #c7417b !important;
+    border: #8f3b76;
+}
+.check-custom input:focus, input:focus {
+    box-shadow: 0 0 5px rgb(245, 72, 127);
+}
+
+

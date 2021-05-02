@@ -10,7 +10,7 @@ namespace ApplicationCore.Entities
     {
         public int Id_Pago { get; set; }
         public int PaqueteId { get; set; }
-        public Paquete Paquete { get; set; }
+        public User User { get; set; }
         public double Monto_Pagado { get; set; }
         public DateTime Fecha_Pago { get; set; }
     }

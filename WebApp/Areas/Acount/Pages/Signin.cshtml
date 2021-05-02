@@ -1,0 +1,206 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebApp.Areas.Acount.Pages.Signin.SigninModel
+@{
+    ViewData["Title"] = "Registro";
+    Layout = "_LayoutAcount";
+}
+@section Styles{
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+}
+
+<div class="bg-form-container border m-auto mt-lg-5" style="width:70%">
+    <form method="post" asp-action="Signin" autocomplete="off" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class="container mt-4">
+            <h1 class="title-main">
+                <span>
+                    <a asp-area="Acount" asp-page="Login" class="a-custom">
+                        <i class="fas fa-chevron-circle-left"></i>
+                    </a>
+                </span>Registro de usuario
+            </h1>
+            <hr class="Middle-line" />
+            <h4 class="title-2">Datos personales</h4><br />
+            <div class="row g-2 signin">
+                <div class="form-floating col-md-6">
+                    <input asp-for="user.Nombre" class="form-control" placeholder="Nombre">
+                    <label for="floatingInput">Nombres:</label>
+                    <span asp-validation-for="user.Nombre" class="text-warning"></span>
+                </div>
+                <div class="form-floating col-md-6">
+                    <input asp-for="user.Apellido" class="form-control" placeholder="Apellido">
+                    <label for="floatingInput">Apellidos:</label>
+                    <span asp-validation-for="user.Apellido" class="text-warning"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row g-2 signin">
+                <div class="form-floating col-md-12">
+                    <input class="form-control" asp-for="user.Email" placeholder="prueba@envoyer.net"
+                           onkeyup="javascript:this.value=this.value.toLowerCase();"
+                           style="text-transform: lowercase">
+                    <label for="floatingInput">Correo Electrónico:</label>
+                    <span asp-validation-for="user.Email" class="text-warning"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row g-2 signin">
+                <div class="form-floating col-md-6">
+                    <input asp-for="user.Contraseña" type="password" class="form-control" placeholder="password">
+                    <label for="floatingInput">Contraseña:</label>
+                    <span asp-validation-for="user.Contraseña" class="text-warning"></span>
+                </div>
+                <div class="form-floating col-md-6">
+                    <input asp-for="user.confirmContraseña" type="password" class="form-control" placeholder="password">
+                    <label>Confirmar contraseña:</label>
+                    <span asp-validation-for="user.confirmContraseña" class="text-warning"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row g-2 signin">
+                <div class="form-floating col-md-6">
+                    <input type="text" asp-for="user.Telefono" class="form-control" id="phone" placeholder="Ingrese su telefono">
+                    <label for="floatingInput">Teléfono:</label>
+                    <span asp-validation-for="user.Telefono" class="text-warning"></span>
+                </div>
+                <div class="form-floating col-md-6">
+                    <input asp-for="user.DUI" class="form-control" id="Dui" placeholder="Ingrese su DUI">
+                    <label for="floatingInput">DUI:</label>
+                    <span asp-validation-for="user.DUI" class="text-warning"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row g-2 signin">
+                <div class="form-floating col-md-6">
+                    <select asp-for="user.Genero" class="form-select">
+                        <option selected disabled>Seleccionar...</option>
+                        <option value="@ApplicationCore.Enum.Genero.Masculino">@ApplicationCore.Enum.Genero.Masculino</option>
+                        <option value="@ApplicationCore.Enum.Genero.Femenino">@ApplicationCore.Enum.Genero.Femenino</option>
+                        <option value="@ApplicationCore.Enum.Genero.Indefinido">@ApplicationCore.Enum.Genero.Indefinido</option>
+                    </select>
+                    <label for="floatingSelect">Género:</label>
+                    <span asp-validation-for="user.Genero" class="text-warning"></span>
+                </div>
+                <div class="form-floating col-md-6">
+                    <input asp-for="user.FechaNacimiento" class="form-control">
+                    <label>Fecha Nacimiento:</label>
+                    <span asp-validation-for="user.FechaNacimiento" class="text-warning"></span>
+                </div>
+            </div>
+            <hr class="Middle-line" />
+            <h4 class="title-2">Dirección de Residencia</h4><br />
+            <div class="form-floating signin">
+                <textarea class="form-control" placeholder="Colonia/Residencial, Lugar de referencia" asp-for="userAddress.Direccion" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Dirección exacta:</label>
+                <span asp-validation-for="userAddress.Direccion" class="text-warning"></span>
+
+            </div>
+            <br />
+            <div class="row g-3 signin">
+                <div class="form-floating col-md">
+                    <select id="DepSelect" asp-for="userAddress.Departamento" class="form-select">
+                        <option selected disabled>Seleccionar...</option>
+                        @foreach (var item in Model.Departamento)
+                        {
+                            <option value="@item.DepName">@item.DepName</option>
+                        }
+                    </select>
+                    <label floatingSelect>Departamento</label>
+                    <span asp-validation-for="userAddress.Departamento" class="text-warning"></span>
+
+                </div>
+                <div class="form-floating col-md">
+                    <select id="MunSelect" class="form-select" asp-for="userAddress.Municipio">
+                        <option selected disabled>Seleccionar...</option>
+                    </select>
+                    <label>Municipio</label>
+                    <span asp-validation-for="userAddress.Municipio" class="text-warning"></span>
+
+                </div>
+                <div class="form-floating col-md">
+                    <input asp-for="userAddress.CodigoPostal" class="form-control" placeholder="name@example.com">
+                    <label for="floatingInput">Codigo Postal</label>
+                    <span asp-validation-for="userAddress.CodigoPostal" class="text-warning"></span>
+
+                </div>
+            </div>
+            <hr class="Middle-line" />
+            <div class="form-group">
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" required>
+                        <label class="txt-label form-check-label">
+                            Acepto los términos y condiciones de uso.
+                        </label>
+                        <div class="invalid-feedback">
+                            Es necesario marcar esta opción.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <button class="btn btn-primary btn-custom" type="submit">Registrarme</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#DepSelect').change(function () {
+                var DepName = document.getElementById('DepSelect').value;
+                console.log(DepName)
+                $.ajax({
+                    type: "GET",
+                    url: "?handler=Mun&DepName=" + DepName,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        var { municipio } = res;
+                        $('.OptionMun').remove();
+                        $.each(municipio, function (index, item) {
+                            $("#MunSelect").append($('<option>').text(item.munName).addClass('OptionMun'));
+                        });
+                    }
+
+                })
+            })
+        });
+
+        $(function () {
+            $('#phone').keypress(function (tecla) {
+                if (tecla.charCode < 48 || tecla.charCode > 57 || this.value.length === 9) return false;
+
+                var flag1 = true;
+                $('#phone').on({
+                    'keyup': function (e) {
+                        if ($(this).val().length == 4 && flag1) {
+                            $(this).val($(this).val() + "-");
+                            flag1 = false;
+                        }
+                    }
+                });
+            });
+
+            $('#Dui').keypress(function (tecla) {
+                if (tecla.charCode < 48 || tecla.charCode > 57 || this.value.length === 10) return false;
+
+                var flag1 = true;
+                $('#Dui').on({
+                    'keyup': function (e) {
+                        if ($(this).val().length == 8 && flag1) {
+                            $(this).val($(this).val() + "-");
+                            flag1 = false;
+                        }
+                    }
+                });
+            });
+        })
+    </script>
+    @await Component.InvokeAsync("Notyf");
+}

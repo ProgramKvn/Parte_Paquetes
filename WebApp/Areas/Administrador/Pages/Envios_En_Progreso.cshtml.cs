@@ -8,11 +8,13 @@ using ApplicationCore.Specification;
 using ApplicationCore.Specification.Filters;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Infraestructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApp.Areas.Administrador.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class Envios_En_ProgresoModel : PageModel
     {
         private readonly MyRepository<Paquete> _repository;

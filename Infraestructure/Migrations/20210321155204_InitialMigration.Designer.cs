@@ -23,7 +23,7 @@ namespace Infraestructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.Alumno", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Id_Paquete")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -49,7 +49,7 @@ namespace Infraestructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id_Paquete");
 
                     b.ToTable("Alumnos");
                 });

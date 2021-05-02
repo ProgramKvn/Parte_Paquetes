@@ -33,35 +33,6 @@
             <b>Agregar un nuevo envío</b>
         </a>
     </div>
-    <div class="card-body table-responsive-md p-3">
-        <div class="row">
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <select class="form-control" id="sizePage" style="width:75px;">
-                        @foreach (var item in Model.UIPagination.SizesPages)
-                        {
-                            if (Model.UIPagination.GetSizePage == item)
-                            {
-            <option selected value="@item">@item</option> }
-                            else
-                            {
-            <option value="@item">@item</option>}
-                        }
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-3 offset-md-7">
-                <div class="form-group float-lg-right">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Buscar" id="searchString" value="@Model.UIPagination.SearchString">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </section>
 <section class="content">
     <div>
@@ -102,7 +73,7 @@ else
 </span>}
     </td>
     <td>
-        <a class="btn Btn-outline-Hex" onclick="Seguir('?handler=Seguir&Id=@item.Id')">Mostrar seguimiento</a>
+        <a class="btn Btn-outline-Hex" onclick="Seguir('?handler=Seguir&Id=@item.Id_Paquete')">Mostrar seguimiento</a>
     </td>
     <td>
         @if (@item.Estado_Pago == true)
@@ -113,13 +84,13 @@ else
 </span> }
 else
 {
-<a class="btn Btn-outline-Orange text-sm" style="width: 75%" onclick="Mostrar_ModalPago(@item.Id)">
+<a class="btn Btn-outline-Orange text-sm" style="width: 75%" onclick="Mostrar_ModalPago(@item.Id_Paquete)">
     <i class="fas fa-money-check-alt"></i>
     <b>Realizar pago</b>
 </a>}
     </td>
     <td>
-        <button type="button" class="btn Btn-outline-Hex" onclick="Detalles('?handler=Select&Id=@item.Id')">
+        <button type="button" class="btn Btn-outline-Hex" onclick="Detalles('?handler=Select&Id=@item.Id_Paquete')">
             <i class="fas fa-eye"></i>
             <b>Ver más detalles</b>
         </button>
@@ -132,36 +103,6 @@ else
 </tr>}
             </tbody>
         </table>
-    </div>
-    <div class="card-footer clearfix">
-        <div class="float-left">
-            <text>Mostrando registros del @(Model.UIPagination.GetStartIndex + 1) al @(Model.UIPagination.GetEndIndex + 1) de un total de @Model.UIPagination.GetTotalItems registros</text>
-
-        </div>
-        <ul class="pagination pagination-md m-0 float-right">
-            @if (Model.Paquetes.Count > 0)
-            {
-@if (Model.UIPagination.GetPreviousPage > 0)
-{
-<li class="page-item"><a class="page-link" data-page="@Model.UIPagination.GetPreviousPage"><i class="fas fa-angle-double-left"></i></a></li>
-}
-
-                @foreach (var item in Model.UIPagination.GetPages)
-                {
-@if (item == Model.UIPagination.GetCurrentPage)
-{
-<li class="page-item active"><a class="page-link" data-page="@item">@item</a></li>
- }
-else
-{
-<li class="page-item"><a class="page-link" data-page="@item">@item</a></li>
-}}
-
-                                @if (Model.UIPagination.GetNextPage <= Model.UIPagination.GetTotalPages)
-                                {
-                <li class="page-item"><a class="page-link" data-page="@Model.UIPagination.GetNextPage"><i class="fas fa-angle-double-right"></i></a></li>
-}}
-        </ul>
     </div>
     <div>
         <div class="modal fade" id="Modal_Detalles" tabindex="-1" aria-labelledby="ModalDetallesLabel" aria-hidden="true">
@@ -239,77 +180,75 @@ else
             </div>
         </div>
     </div>
-    <div>
-        <div class="modal fade" id="Modal_Pago" tabindex="-1" aria-labelledby="Modal_PagoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="Modal_PagoLabel">Formulario de pago</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post">
-                            <div class="row mb-2">
-                                <div class="col-sm-12">
-                                    <label class="text-muted">Número de tarjeta de crédito</label>
-                                    <div class="input-group mb-2">
-                                        <input type="text" id="numero_Tarjeta" class="form-control" required />
-                                        <span class="input-group-text" id="basic-addon2"><i class="fab fa-cc-visa"></i></span>
-                                    </div>
+    <!--Modal de pago-->
+    <div class="modal fade" id="Modal_Pago" tabindex="-1" aria-labelledby="Modal_PagoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Modal_PagoLabel">Formulario de pago</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <label class="text-muted">Número de tarjeta de crédito</label>
+                                <div class="input-group mb-2">
+                                    <input type="text" id="numero_Tarjeta" class="form-control" required />
+                                    <span class="input-group-text" id="basic-addon2"><i class="fab fa-cc-visa"></i></span>
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-4">
-                                    <label class="text-muted">CVV</label>
-                                    <input type="text" id="cvv" class="form-control" required />
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="text-muted">MM/AA</label>
-                                    <input type="text" id="caducidad" class="form-control" required />
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="text-muted">Código P.</label>
-                                    <input type="text" class="form-control" required />
-                                </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-4">
+                                <label class="text-muted">CVV</label>
+                                <input type="text" id="cvv" class="form-control" required />
                             </div>
-                            <div class="footer-form">
+                            <div class="col-sm-4">
+                                <label class="text-muted">MM/AA</label>
+                                <input type="text" id="caducidad" class="form-control" required />
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-sm-4">
+                                <label class="text-muted">Código P.</label>
+                                <input type="text" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="footer-form">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <div>
-        <div class="modal fade" id="Modal_Seguimiento" tabindex="-1" aria-labelledby="Modal_SeguimientoLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="Modal_SeguimientoLabel">Detalles del seguimiento</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!--Modal de pago-->
+    <div class="modal fade" id="Modal_Seguimiento" tabindex="-1" aria-labelledby="Modal_SeguimientoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Modal_SeguimientoLabel">Detalles del seguimiento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
+                        <hr id="Linea_Chequeo">
+                        <div id="i_Chequeo" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <hr id="Linea_Progreso">
+                        <div id="i_Progreso" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-people-carry"></i>
+                        </div>
+                        <hr id="Linea_Finalizado">
+                        <div id="i_Finalizado" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <div class="d-flex flex-row justify-content-between align-items-center align-content-center">
-                            <hr id="Linea_Chequeo">
-                            <div id="i_Chequeo" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
-                                <i class="fab fa-accessible-icon"></i>
-                            </div>
-                            <hr id="Linea_Progreso">
-                            <div id="i_Progreso" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
-                                <i class="fab fa-accessible-icon"></i>
-                            </div>
-                            <hr id="Linea_Finalizado">
-                            <div id="i_Finalizado" style="border-radius: 50%; height: 40px; width: 40px; border: 3px solid; display: flex; align-items: center; justify-content: center;">
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row justify-content-between align-items-center">
-                            <div class="d-flex flex-column align-items-start"><span>Pendiente</span></div>
-                            <div class="d-flex flex-column justify-content-center"><span>En chequeo</span></div>
-                            <div class="d-flex flex-column align-items-center"><span>En progreso</span></div>
-                            <div class="d-flex flex-column align-items-end"><span>Finalizado</span></div>
-                        </div>
-                        <div class="Si_Rechazado">
-                        </div>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex flex-column align-items-start"><span>Pendiente</span></div>
+                        <div class="d-flex flex-column justify-content-center"><span>En chequeo</span></div>
+                        <div class="d-flex flex-column align-items-center"><span>En progreso</span></div>
+                        <div class="d-flex flex-column align-items-end"><span>Finalizado</span></div>
+                    </div>
+                    <div class="Si_Rechazado">
                     </div>
                 </div>
             </div>
@@ -383,7 +322,6 @@ else
                         }
                     });
             });
-
             Detalles = (url) => {
                 $.ajax({
                     type: "GET",
@@ -538,7 +476,7 @@ else
 
                             $("#i_Chequeo").attr('class', 'bg-success');
                             $("#i_Progreso").attr('class', 'bg-light');
-                            $("#i_Finalizado").attr('class', 'd-flex justify-content-center align-items-center big-dot bg-light');
+                            $("#i_FinalizadId_Paquete").attr('class', 'd-flex justify-content-center align-items-center big-dot bg-light');
 
                             $("#i_Finalizado").empty();
                             $("#i_Finalizado").append('<i class="fas fa-times"></i>');
@@ -558,7 +496,7 @@ else
                         }
                         else if (estado_Paquete == "Envio finalizado") {
                             $(".Si_Rechazado").empty();
-                            $("#Linea_Chequeo").attr('class', 'flex-fill track-line');
+                            $("#Linea_Chequeo").attr('class', 'flex-filId_PaqueteId_PaqueteId_Paquete track-line');
                             $("#Linea_Progreso").attr('class', 'flex-fill track-line');
                             $("#Linea_Finalizado").attr('class', 'flex-fill track-line');
 
@@ -567,7 +505,7 @@ else
                             $("#i_Finalizado").attr('class', 'd-flex justify-content-center align-items-center big-dot bg-success');
 
                             $("#i_Finalizado").empty();
-                            $("#i_Finalizado").append('<i class="fas fa-check"></i>');
+                            $("#i_Finalizado").append('<i class="fas fa-truck-loading"></i>');
                         }
                         else if (estado_Paquete == "Rechazado") {
                             $("#Linea_Chequeo").attr('class', 'flex-fill red-line');

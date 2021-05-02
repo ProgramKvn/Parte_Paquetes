@@ -14,7 +14,7 @@ namespace Infraestructure.Data.Config
         public void Configure(EntityTypeBuilder<Paquete> builder)
         {
             builder.ToTable("Paquetes");
-            builder.HasKey(c => c.Id);
+            builder.HasKey(c => c.Id_Paquete);
             builder.Property(c => c.Contenido_Paquete)
                 .HasMaxLength(150)
                 .IsRequired();
@@ -32,6 +32,14 @@ namespace Infraestructure.Data.Config
             builder.Property(c => c.Estado_Pago)
                 .HasDefaultValue(false);
             builder.Property(c => c.Fecha_Entrega)
+                .IsRequired();
+            builder.Property(c => c.Origen)
+                .IsRequired();
+            builder.Property(c => c.Destino)
+                .IsRequired();
+            builder.Property(c => c.Departamento)
+                .IsRequired();
+            builder.Property(c => c.Municipio)
                 .IsRequired();
         }
     }

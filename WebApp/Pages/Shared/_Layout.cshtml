@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using WebApp.Helpers
+@using System.Security.Claims;
+@using System.Security.Principal;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -51,10 +54,12 @@
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="~/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="@(((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Webpage).Value)" class="img-circle elevation-2" alt="User Profile Image">
                     </div>
-                    <div class="info">
-                        <a href="javascript:;" class="d-block">Alexander Pierce</a>
+                    <div class="info" style="word-break: break-word;">
+                        <a href="javascript:;" class="text-wrap txt-name">
+                            @User.Identity.Name
+                        </a>
                     </div>
                 </div>
 
@@ -62,48 +67,61 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
+                        with font-awesome or any other icon font library -->
                         <li class="nav-header">Estado de Envíos</li>
-                        <li class="nav-item">
-                            <a asp-area="Paquetes" asp-page="Index" class="nav-link" id="a-paquete">
-                                <i class="fas fa-boxes"></i>
-                                <p>
-                                    Mis paquetes
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item"> 
-                            <a asp-area="Administrador" asp-page="Index" class="nav-link" id="a-chequeo">
-                                <i class="fas fa-search"></i>
-                                <p>
-                                    Envíos en chequeo
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="Administrador" asp-page="Envios_Rechazados" class="nav-link" id="a-rechazado">
-                                <i class="fas fa-truck-loading"></i>
-                                <p>
-                                    Envíos rechazados
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="Administrador" asp-page="Envios_En_Progreso" class="nav-link" id="a-progreso">
-                                <i class="fas fa-people-carry"></i>
-                                <p>
-                                    Envíos en proceso
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-area="Administrador" asp-page="Envio_Finalizado" class="nav-link" id="a-finalizado">
-                                <i class="fas fa-truck-loading"></i>
-                                <p>
-                                    Envíos finalizados
-                                </p>
-                            </a>
-                        </li>
+                        @if (User.IsInRole("Cliente"))
+
+                        {
+            <li class="nav-item">
+                <a asp-area="Paquetes" asp-page="Index" class="nav-link" id="a-paquete">
+                    <i class="fas fa-boxes"></i>
+                    <p>
+                        Mis paquetes
+                    </p>
+                </a>
+            </li> }
+                        else
+                        {
+            <li class="nav-item">
+                <a asp-area="Administrador" asp-page="Index" class="nav-link" id="a-chequeo">
+                    <i class="fas fa-search"></i>
+                    <p>
+                        Envíos en chequeo
+                    </p>
+                </a>
+            </li>
+                            <li class="nav-item">
+                                <a asp-area="Administrador" asp-page="Envios_Rechazados" class="nav-link" id="a-rechazado">
+                                    <i class="fas fa-truck-loading"></i>
+                                    <p>
+                                        Envíos rechazados
+                                    </p>
+                                </a>
+                            </li>
+                                            <li class="nav-item">
+                                                <a asp-area="Administrador" asp-page="Envios_En_Progreso" class="nav-link" id="a-progreso">
+                                                    <i class="fas fa-people-carry"></i>
+                                                    <p>
+                                                        Envíos en proceso
+                                                    </p>
+                                                </a>
+                                            </li>
+                                                            <li class="nav-item">
+                                                                <a asp-area="Administrador" asp-page="Envio_Finalizado" class="nav-link" id="a-finalizado">
+                                                                    <i class="fas fa-truck-loading"></i>
+                                                                    <p>
+                                                                        Envíos finalizados
+                                                                    </p>
+                                                                </a>
+                                                            </li>
+                                                                            <li class="nav-item">
+                                                                                <a asp-area="Acount" asp-page="Login" asp-page-handler="Logout" class="nav-link" id="a-finalizado">
+                                                                                    <i class="fas fa-truck-loading"></i>
+                                                                                    <p>
+                                                                                        Cerrar Sesion
+                                                                                    </p>
+                                                                                </a>
+                                                                            </li>}
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

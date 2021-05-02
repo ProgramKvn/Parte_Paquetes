@@ -26,7 +26,10 @@ namespace WebApp.Configuration
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
             services.AddMvc()
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Paquete_Validator>());
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Paquete_Validator>())
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserValidator>())
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<userAddressValidator>())
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginUserValidator>());
 
             return services;
         }

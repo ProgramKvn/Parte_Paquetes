@@ -1,0 +1,47 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebApp.Areas.Acount.Pages.Login.LoginModel
+@{
+    ViewData["Title"] = "Inicio de sesion";
+    Layout = "_LayoutAcount";
+}
+@section Styles{
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+}
+
+<div class="bg-form-container position-absolute top-50 start-50 translate-middle border">
+    <form method="post" asp-action="Login" autocomplete="off">
+        <div class="container m-auto" style="width: 500px">
+            <h2 class="title-main">Iniciar sesion</h2>
+            <div class="form-floating  my-lg-3">
+                <input asp-for="LoginUser.email" class="form-control" placeholder="example@gmail.com"
+                       onkeyup="javascript:this.value=this.value.toLowerCase();"
+                       style="text-transform: lowercase">
+                <label>Correo Electronico:</label>
+                <span asp-validation-for="LoginUser.email" class="text-warning"></span>
+            </div>
+            <div class="form-floating  my-lg-3">
+                <input asp-for="LoginUser.password" type="password" class="form-control" placeholder="A2345b$">
+                <label>Contraseña:</label>
+                <span asp-validation-for="LoginUser.password" class="text-warning"></span>
+            </div>
+            <div class="form-check form-switch mb-lg-2 check-custom">
+                <input class="form-check-input" type="checkbox">
+                <label class="form-check-label txt-label">Mantener sesion activa</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-custom">Iniciar sesion</button>
+            <div class="my-2">
+                <span class="txt-label">¿No tienes cuenta?</span>
+                <a asp-area="Acount" asp-page="Signin" class="text-decoration-none a-custom">¡Registrarte aquí!</a>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    @await Component.InvokeAsync("Notyf")
+}

@@ -11,7 +11,7 @@ namespace ApplicationCore.Entities.Validator
     {
         public Paquete_Validator()
         {
-            RuleFor(x => x.Id).NotNull();
+            RuleFor(x => x.Id_Paquete).NotNull();
             RuleFor(x => x.Contenido_Paquete).NotNull().WithMessage("Este campo no puede enviarse vacío.")
                 .Length(2, 150).WithMessage("Este campo debe de contener de 2 a 255 caracteres.");
             RuleFor(x => x.Tipo_Contenido).IsInEnum().WithMessage("Este campo no puede enviarse vacío.");
@@ -21,6 +21,8 @@ namespace ApplicationCore.Entities.Validator
                 .NotNull().WithMessage("Este campo no puede enviarse vacío.")
                 .GreaterThan(DateTime.Now).WithMessage("No es posible aceptar una fecha menor a la fecha actual.");
             RuleFor(x => x.Monto_Pagar_Prop).NotNull().WithMessage("Este campo no puede enviarse vacío.");
+            RuleFor(x => x.Departamento).NotNull().WithMessage("Por favor seleccione un Departamento");
+            RuleFor(x => x.Municipio).NotNull().WithMessage("Por favor seleccione un Municipio");
         }
     }
 }

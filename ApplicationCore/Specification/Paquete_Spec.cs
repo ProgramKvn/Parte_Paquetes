@@ -19,7 +19,8 @@ namespace ApplicationCore.Specification
                     .Take(PaginationHelper.CalculateTake(filter));
             if (!string.IsNullOrEmpty(filter.Contenido_Paquete))
             {
-                Query.Search(x => x.Contenido_Paquete, "%" + filter.Contenido_Paquete + "%");
+                Query.Search(x => x.Contenido_Paquete, "%" + filter.Contenido_Paquete + "%")
+                    .Where(x => x.UserId == filter.UserId);
             }
         }
     }

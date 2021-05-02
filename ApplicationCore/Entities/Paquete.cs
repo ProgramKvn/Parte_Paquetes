@@ -9,7 +9,9 @@ namespace ApplicationCore.Entities
 {
     public class Paquete
     {
-        public int Id { get; set; }
+        public int Id_Paquete { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public string String_Fotografia { get; set; }
         public string Nombre_Fotografia() {
             return Contenido_Paquete + '-' + Guid.NewGuid().ToString();
@@ -75,5 +77,13 @@ namespace ApplicationCore.Entities
         }
         public bool Estado_Pago { get; set; }
         public DateTime Fecha_Entrega { get; set; }
+        public string Origen { get; set; }
+        public string Departamento { get; set; }
+        public string Municipio { get; set; }
+        public string Destino_Func()
+        {
+            return Departamento + ", " + Municipio;
+        }
+        public string Destino { get; set; }
     }
 }
