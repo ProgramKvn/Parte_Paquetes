@@ -202,6 +202,7 @@
                         '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
                     },
                     success: function () {
+                        $("#btn_aceptar").attr('disabled', true)
                         Swal.fire({
                             title: 'Solicitud aceptada.',
                             subtitle: 'Has aceptado el envío de este paquete.',
@@ -223,6 +224,7 @@
                         '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
                     },
                     success: function () {
+                        $("#btn_rechazar").attr('disabled', true)
                         Swal.fire({
                             title: 'Solicitud rechazada.',
                             subtitle: 'Has negado el envío de este paquete.',
@@ -289,17 +291,13 @@
             Mostrar_Modal = (Id) => {
                 $(".modal-footer")
                     .append(`
-                            <button type="button" class="btn btn-success" onclick="Aceptar('?handler=Aceptar&Id=${Id}')">
+                            <button type="button" id="btn_aceptar" class="btn btn-success" onclick="Aceptar('?handler=Aceptar&Id=${Id}')">
                                 <i class="fas fa-clipboard-check"></i>
                                 Aceptar envío
                             </button>
-                            <button type="button" class="btn btn-danger" onclick="Rechazar('?handler=Rechazar&Id=${Id}')">
+                            <button type="button" id="btn_rechazar" class="btn btn-danger" onclick="Rechazar('?handler=Rechazar&Id=${Id}')">
                                 <i class="fas fa-minus-square"></i>
                                 Rechazar envío
-                            </button>
-                            <button class='btn btn-outline-danger' data-bs-dismiss="modal">
-                            <i class="fas fa-times-circle"></i>
-                                Cerrar detalles
                             </button>`
                     );
                 $("#Modal_Detalles").modal("show");

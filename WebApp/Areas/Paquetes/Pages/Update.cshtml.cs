@@ -13,7 +13,7 @@ using WebApp.Services;
 
 namespace WebApp.Areas.Paquetes.Pages
 { 
-    public class UpdateModel : PageModel
+    public class UpdateModel : PageModel 
     {
         private readonly MyRepository<Paquete> _repository;
         public INotyfService _notyfService { get;}
@@ -62,13 +62,13 @@ namespace WebApp.Areas.Paquetes.Pages
                 {
                     await _repository.UpdateAsync(paquete);
                     _notyfService.Information("Información actualizada con éxito");
+                    return RedirectToPage("Index");
                 }
                 else
                 {
                     _notyfService.Warning("Datos proporcionados no válidos.");
                     return Page();
                 }
-                return RedirectToPage("Index");
             }
             catch (Exception ex)
             {

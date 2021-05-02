@@ -18,6 +18,7 @@ namespace ApplicationCore.Entities.Validator
             RuleFor(x => x.Peso_Contenido).NotNull().WithMessage("Este campo no puede enviarse vacío.");
             RuleFor(x => x.Envio_Prioridad).NotNull().WithMessage("Este campo no puede enviarse vacío.");
             RuleFor(x => x.Fecha_Entrega)
+                .NotNull().WithMessage("Este campo no puede enviarse vacío.")
                 .GreaterThan(DateTime.Now).WithMessage("No es posible aceptar una fecha menor a la fecha actual.");
             RuleFor(x => x.Monto_Pagar_Prop).NotNull().WithMessage("Este campo no puede enviarse vacío.");
         }

@@ -37,6 +37,7 @@
     <Compile Remove="Areas\Administrador\Pages\Paquetes_En_Entrega.cshtml.cs" />
     <Compile Remove="Areas\Administrador\Pages\Paquetes_Rechazados.cs" />
     <Compile Remove="Areas\Administrador\Pages\Paquetes_Rechazados.cshtml.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Prueba.cshtml.cs" />
     <Compile Remove="Areas\Administrador\Pages\Realizar_Pago.cshtml.cs" />
     <Compile Remove="Areas\Paquetes\Pages\Pago_Paquete.cshtml.cs" />
   </ItemGroup>
@@ -48,6 +49,7 @@
     <Content Remove="Areas\Administrador\Pages\Paquetes_Entregados.cshtml" />
     <Content Remove="Areas\Administrador\Pages\Paquetes_En_Entrega.cshtml" />
     <Content Remove="Areas\Administrador\Pages\Paquetes_Rechazados.cshtml" />
+    <Content Remove="Areas\Administrador\Pages\Prueba.cshtml" />
     <Content Remove="Areas\Administrador\Pages\Realizar_Pago.cshtml" />
     <Content Remove="Areas\Paquetes\Pages\Mostrar_Detalles.cshtml" />
     <Content Remove="Areas\Paquetes\Pages\Pago_Paquete.cshtml" />

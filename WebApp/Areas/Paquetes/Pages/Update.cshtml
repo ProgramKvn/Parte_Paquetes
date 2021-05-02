@@ -16,7 +16,7 @@
         <i class="fas fa-undo"></i>
         Volver al administrador de paquetes
     </a>
-</section>
+</section> 
 <section class="content">
     <div>
         <div class="card">
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div style="display: flex; justify-content: space-around;">
-                        <button type="submit" class="btn Btn-outline-Hex">
+                        <button type="submit" class="btn Btn-outline-Hex" id="submit">
                             <i class="fas fa-share-square"></i>
                             <b>Actualizar paquete</b>
                         </button>
@@ -113,8 +113,10 @@
         $.validator.unobtrusive.parse(document);
         $(document).ready(function () {
             $('#a-paquete').addClass("active");
-        }
-        );
+            $("#submit").submit(function (e) {
+                return false;
+            });
+        });
     </script>
     @await Component.InvokeAsync("Notyf")
 }

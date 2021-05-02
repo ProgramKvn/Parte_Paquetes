@@ -9,6 +9,17 @@
 @section Styles{
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 }
 <!--Contenido principal-->
 <!--Parte superior del contenido-->
@@ -230,14 +241,37 @@ else
     </div>
     <div>
         <div class="modal fade" id="Modal_Pago" tabindex="-1" aria-labelledby="Modal_PagoLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="Modal_PagoLabel">Detalles del paquete</h5>
+                        <h5 class="modal-title" id="Modal_PagoLabel">Formulario de pago</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form method="post">
+                            <div class="row mb-2">
+                                <div class="col-sm-12">
+                                    <label class="text-muted">Número de tarjeta de crédito</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" id="numero_Tarjeta" class="form-control" required />
+                                        <span class="input-group-text" id="basic-addon2"><i class="fab fa-cc-visa"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-4">
+                                    <label class="text-muted">CVV</label>
+                                    <input type="text" id="cvv" class="form-control" required />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="text-muted">MM/AA</label>
+                                    <input type="text" id="caducidad" class="form-control" required />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="text-muted">Código P.</label>
+                                    <input type="text" class="form-control" required />
+                                </div>
+                            </div>
                             <div class="footer-form">
                             </div>
                         </form>
@@ -248,7 +282,7 @@ else
     </div>
     <div>
         <div class="modal fade" id="Modal_Seguimiento" tabindex="-1" aria-labelledby="Modal_SeguimientoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="Modal_SeguimientoLabel">Detalles del seguimiento</h5>
@@ -304,6 +338,52 @@ else
                     filterPaginate("searchString", $(this).val());
                 }
             });
+            $("#submit_pago").submit(function (e) {
+                return false;
+            });
+
+            $('#numero_Tarjeta').keypress(function (tecla) {
+                if (tecla.charCode < 48 || tecla.charCode > 57 || this.value.length === 14) return false;
+
+                var flag1 = true;
+                $('#numero_Tarjeta').on({
+                    'keyup': function (e) {
+                        if ($(this).val().length == 4 && flag1) {
+                            $(this).val($(this).val() + " ");
+                        }
+                        else if ($(this).val().length == 9 && flag1) {
+                            $(this).val($(this).val() + " ");
+                            flag1 = false;
+                        }
+                    }
+                });
+            });
+            $('#caducidad').keypress(function (tecla) {
+                if (tecla.charCode < 48 || tecla.charCode > 57 || this.value.length === 5) return false;
+
+                var flag1 = true;
+                $('#caducidad').on({
+                    'keyup': function (e) {
+                        if ($(this).val().length == 2 && flag1) {
+                            $(this).val($(this).val() + "/");
+                            flag1 = false;
+                        }
+                    }
+                });
+            });
+                $('#cvv').keypress(function (tecla) {
+                    if (tecla.charCode < 48 || tecla.charCode > 57 || this.value.length === 3) return false;
+
+                    var flag1 = true;
+                    $('#cvv').on({
+                        'keyup': function (e) {
+                            if ($(this).val().length == 3 && flag1) {
+                                flag1 = false;
+                            }
+                        }
+                    });
+            });
+
             Detalles = (url) => {
                 $.ajax({
                     type: "GET",
@@ -314,6 +394,7 @@ else
                         '@tokenSet.HeaderName': '@tokenSet.RequestToken'
                     },
                     success: function (data) {
+                        $("#editar").attr('disabled', true)
                         const { info } = data;
                         const { nombre_Fotografia } = data;
                         const { id, contenido_Paquete, string_Fotografia, tipo_Contenido, peso_Contenido, fecha_Entrega, envio_Prioridad, monto_Pagar_Prop } = info;
@@ -377,6 +458,7 @@ else
                             },
                             success: function (res) {
                                 if (res.deleted) {
+                                    $("#btn-eliminar").attr('disabled', true);
                                     Swal.fire({
                                         title: 'Registro eliminado.',
                                         subtitle: 'Has eliminado esta solicitud con éxito.',
@@ -519,8 +601,11 @@ else
             {
                 $("#Modal_Pago").modal("show");
                 $("#Modal_Pago .footer-form").append(`
-                    <button type="button" class="btn btn-outline-success" onclick="Pagar('?handler=Pagar&Id=${Id}')">
+                    <button type="button" id="submit_pago" class="btn btn-outline-success mb-2" onclick="Pagar('?handler=Pagar&Id=${Id}')" style="width: 100%;">
                         Aceptar pago
+                    </button>
+                    <button type="button" id="cancelar_pago" class="btn btn-outline-danger" data-bs-dismiss="modal" style="width: 100%;">
+                        Cancelar pago
                     </button>
                 `);
             }
@@ -532,17 +617,17 @@ else
                 let urlEdit = url.origin + url.pathname + `/Update?Id=${id}`;
                 $("#Modal_Detalles .modal-header").append(`
                     <h5 class="modal-title" id="ModalDetallesLabel">Detalles del paquete</h5>
-                    <button class="btn btn-danger" data-bs-dismiss="modal">
+                    <button type="button" id="btn_eliminar" class="btn btn-danger" data-bs-dismiss="modal">
                         <i class="fas fa-times"></i>
                     </button>`
                 );
                 $("#Modal_Detalles .modal-footer")
                     .append(`
-                            <a href="${urlEdit}" class="btn Btn-outline-Hex">
+                            <a href="${urlEdit}" id="editar" class="btn Btn-outline-Hex">
                                 <i class="fas fa-pencil-alt"></i>
                                 <b>Editar</b>
                             </a>
-                            <button class="btn btn-outline-danger" onclick="Eliminar('?handler=Eliminar&Id=${id}')">
+                            <button id="btn-eliminar" class="btn btn-outline-danger" onclick="Eliminar('?handler=Eliminar&Id=${id}')">
                                 <i class="fas fa-trash"></i>
                                 Eliminar detalles
                             </button>`
