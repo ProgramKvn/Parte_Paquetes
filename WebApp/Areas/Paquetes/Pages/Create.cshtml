@@ -8,7 +8,7 @@
 
 <section class="content-header">
     <h4 style="text-align: right;">Añade una nueva solicitud.</h4>
-    <a type="button" class="btn btn-outline-danger" asp-area="Paquetes" asp-page="Index">
+    <a class="btn btn-outline-danger" asp-area="Paquetes" asp-page="Index">
         <i class="fas fa-undo"></i>
         Volver al administrador de paquetes
     </a>
@@ -30,7 +30,7 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-camera-retro"></i>
                                 </span>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="Subir_Archivo" class="form-control"/>
+                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="Subir_Archivo" class="form-control"  required/>
                             </div>
                         </div>
                     </div>
@@ -39,10 +39,11 @@
                             <label>Contenido del paquete</label>
                             <div class="input-group">
                                 <span class="input-group-text">
-                                    <i class="fas fa-box"></i>
+                                    <i class="fas fa-box-open"></i>
                                 </span>
-                                <input type="text" class="form-control" asp-for="Paquete.Nombre_Paquete" placeholder="El texto debe de ser autodescriptivo"/>
+                                <input type="text" class="form-control" asp-for="Paquete.Contenido_Paquete" placeholder="El texto debe de ser autodescriptivo" />
                             </div>
+                            <span asp-validation-for="Paquete.Contenido_Paquete" class="text-danger"></span>
                         </div>
                         <div class="col">
                             <label>Tipo de contenido</label>
@@ -50,41 +51,41 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-tv"></i>
                                 </span>
-                                <select class="form-select" asp-for="Paquete.Tipo_Paquete">
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Accesorio">@ApplicationCore.Enum.Tipo_Paquete.Accesorio</option>
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Decoracion">@ApplicationCore.Enum.Tipo_Paquete.Decoracion</option>
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Electrodomestico">@ApplicationCore.Enum.Tipo_Paquete.Electrodomestico</option>
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Muebles">@ApplicationCore.Enum.Tipo_Paquete.Muebles</option>
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Vestimenta">@ApplicationCore.Enum.Tipo_Paquete.Vestimenta</option>
+                                <select class="form-select" asp-for="Paquete.Tipo_Contenido">
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Accesorio">@ApplicationCore.Enum.Tipo_Contenido.Accesorio</option>
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Decoracion">@ApplicationCore.Enum.Tipo_Contenido.Decoracion</option>
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Electrodomestico">@ApplicationCore.Enum.Tipo_Contenido.Electrodomestico</option>
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Muebles">@ApplicationCore.Enum.Tipo_Contenido.Muebles</option>
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Vestimenta">@ApplicationCore.Enum.Tipo_Contenido.Vestimenta</option>
                                 </select>
                             </div>
-                            <span asp-validation-for="Paquete.Tipo_Paquete" class="text-danger"></span>
+                            <span asp-validation-for="Paquete.Tipo_Contenido" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row mb-4">
                         <div class="col">
                             <label>Fecha de entrega</label>
                             <div class="input-group">
-                                <input class="form-control" asp-for="Paquete.Fecha_Entrega" />
+                                <input class="form-control" asp-for="Paquete.Fecha_Entrega"/>
                             </div>
                             <span asp-validation-for="Paquete.Fecha_Entrega" class="text-danger"></span>
                         </div>
                         <div class="col">
                             <label>Peso del paquete</label>
                             <div class="input-group">
-                                <input class="form-control" asp-for="Paquete.Peso_Paquete" placeholder="Expresa la cantidad en libras"/>
+                                <input class="form-control" asp-for="Paquete.Peso_Contenido" placeholder="Expresa la cantidad en libras"/>
                                 <span class="input-group-text">
                                     lb
                                 </span>
                             </div>
-                            <span asp-validation-for="Paquete.Peso_Paquete" class="text-danger"></span>
+                            <span asp-validation-for="Paquete.Peso_Contenido" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row mb-4 form-check">
                         <div class="col">
-                            <input type="checkbox" class="form-check-input" asp-for="Paquete.Envio_Especial" />
-                            <label asp-for="Paquete.Envio_Especial">Activar envío con prioridad.</label>
-                            <span asp-validation-for="Paquete.Envio_Especial" class="text-danger"></span>
+                            <input type="checkbox" class="form-check-input" asp-for="Paquete.Envio_Prioridad" />
+                            <label asp-for="Paquete.Envio_Prioridad">Activar envío con prioridad.</label>
+                            <span asp-validation-for="Paquete.Envio_Prioridad" class="text-danger"></span>
                         </div>
                     </div>
                     <div style="display: flex; justify-content: space-around;">
@@ -106,7 +107,7 @@
 @section Scripts{
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <script type="text/javascript" language="javscript">
+    <script type="text/javascript" language="javascript">
         $.validator.unobtrusive.parse(document);
         $(document).ready(function () {
             $('#a-paquete').addClass('active');

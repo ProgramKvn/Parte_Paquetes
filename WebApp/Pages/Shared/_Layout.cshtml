@@ -62,45 +62,69 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
-                        <li class="nav-header">CATALOGOS</li>
+    with font-awesome or any other icon font library -->
+                        <li class="nav-header">Estado de Envíos</li>
                         <li class="nav-item">
                             <a asp-area="Paquetes" asp-page="Index" class="nav-link" id="a-paquete">
-                                <i class="fas fa-box-open"></i>
+                                <i class="fas fa-boxes"></i>
                                 <p>
                                     Mis paquetes
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a asp-area="Administrador" asp-page="Index" class="nav-link" id="a-chequeo">
+                                <i class="fas fa-search"></i>
+                                <p>
+                                    Envíos en chequeo
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Administrador" asp-page="Envios_En_Progreso" class="nav-link" id="a-proceso">
+                                <i class="fas fa-people-carry"></i>
+                                <p>
+                                    Envíos en proceso
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="Administrador" asp-page="Envio_Finalizado" class="nav-link" id="a-finalizado">
+                                <i class="fas fa-truck-loading"></i>
+                                <p>
+                                    Envíos finalizados
+                                </p>
+                            </a>
+                        </li>
                         @*<li class="nav-item">
-                                <a href="javascript:;" class="nav-link">
-                                    <i class="nav-icon far fa-envelope"></i>
-                                    <p>
-                                        Mailbox
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="../mailbox/mailbox.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Inbox</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="../mailbox/compose.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Compose</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="../mailbox/read-mail.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Read</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>*@
+            <a href="javascript:;" class="nav-link">
+                <i class="nav-icon far fa-envelope"></i>
+                <p>
+                    Mailbox
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="../mailbox/mailbox.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Inbox</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../mailbox/compose.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Compose</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../mailbox/read-mail.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Read</p>
+                    </a>
+                </li>
+            </ul>
+        </li>*@
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -130,8 +154,6 @@
     <!-- ./wrapper -->
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!--DataTables-->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <!-- AdminLTE App -->
     <script src="~/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->

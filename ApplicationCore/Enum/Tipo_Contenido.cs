@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Enum
 {
-    public enum Tipo_Paquete
+    public enum Tipo_Contenido
     {
         [Display(Name = "Accesorio")]
         Accesorio,

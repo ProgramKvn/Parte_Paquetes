@@ -60,13 +60,6 @@ namespace WebApp.Areas.Paquetes.Pages
                 }
                 if (ModelState.IsValid)
                 {
-                    paquete.Fotografia = await _fileUploadService.LocalStorage(Subir_Archivo, Paquete.Nombre_Fotografia(), "paquetes");
-                    paquete.Nombre_Paquete = Paquete.Nombre_Paquete;
-                    paquete.Tipo_Paquete = Paquete.Tipo_Paquete;
-                    paquete.Fecha_Entrega = Paquete.Fecha_Entrega;
-                    paquete.Peso_Paquete = Paquete.Peso_Paquete;
-                    paquete.Envio_Especial = Paquete.Envio_Especial;
-
                     await _repository.UpdateAsync(paquete);
                     _notyfService.Information("Información actualizada con éxito");
                 }

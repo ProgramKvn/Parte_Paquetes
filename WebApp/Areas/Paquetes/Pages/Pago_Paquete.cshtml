@@ -1,0 +1,28 @@
+﻿@page
+@model WebApp.Areas.Paquetes.Pages.Pago_PaqueteModel
+@{
+}
+<section class="content-header">
+    <h5>Realizar pago.</h5>
+</section>
+<section class="content">
+    <div>
+        <div class="modal fade" id="Modal_Pago" tabindex="-1" aria-labelledby="Modal_PagoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="Modal_PagoLabel">Formulario de pago</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="display: flex; justify-content: space-around;">
+                        <button class="btn btn-danger" style="width: 100%" data-bs-dismiss="modal">Cancelar pago</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,107 @@
+﻿@page
+@using Microsoft.AspNetCore.Antiforgery
+@model WebApp.Areas.Administrador.Pages.Envio_FinalizadoModel
+@inject IAntiforgery antiforgery
+@{ ViewData["Title"] = "Envíos finalizados.";
+    Layout = "_Layout";
+    var tokenSet = antiforgery.GetAndStoreTokens(HttpContext);
+}
+@section Styles
+{
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+}
+<section class= "content-header" >
+
+     <div>
+
+         <h4 style="text-align: right;" > Controla los envíos en chequeo.</h4>
+    </div>
+</section>
+<section class="content">
+    <div>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Contenido del paquete</th>
+                    <th scope="col">Tipo de envío</th>
+                    <th scope="col">Estado del envío</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Paquetes.Count > 0)
+                {
+                    foreach (var item in Model.Paquetes)
+                    {
+                        <tr>
+                            <th scope="row">
+                                <img src="@item.String_Fotografia" alt="@item.Nombre_Fotografia()" style="width: 100px;" class="rounded" />
+                            </th>
+                            <td>@item.Contenido_Paquete</td>
+                            <td>
+                                @if (@item.Envio_Prioridad == true)
+                                {
+                                    <span class="badge bg-warning">
+                                        <i class="fas fa-shipping-fast"></i>
+                                        Prioridad de envío
+                                    </span> 
+                                }
+                                else
+                                {
+                                    <span class="badge bg-teal text-dark">
+                                        <i class="fas fa-truck"></i>
+                                        Envío normal
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                @if (@item.Estado_Paquete == "En chequeo")
+                                {
+                                    <span class="badge bg-primary">
+                                        @item.Estado_Paquete
+                                    </span> 
+                                }
+                                else if (@item.Estado_Paquete == "Rechazado")
+                                {
+                                    <span class="badge bg-danger">
+                                        @item.Estado_Paquete
+                                    </span> 
+                                }
+                                else if (@item.Estado_Paquete == "En progreso")
+                                {
+                                    <span class="badge bg-warning">
+                                        @item.Estado_Paquete
+                                    </span> 
+                                }
+                                else if (@item.Estado_Paquete == "Envio finalizado")
+                                {
+                                    <span class="badge bg-success">
+                                        @item.Estado_Paquete
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="12" class="text-center">No se han encontrado registros</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@section Scripts
+{
+    <!--Pager-->
+    <script src = "~/js/pager.js" ></script>
+
+    <!--SweetAlert2-->
+    <script src = "~/plugins/sweetalert2/sweetalert2.min.js" ></script>
+    @await Component.InvokeAsync("Notyf");
+}

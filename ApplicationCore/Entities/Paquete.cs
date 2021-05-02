@@ -10,31 +10,31 @@ namespace ApplicationCore.Entities
     public class Paquete
     {
         public int Id { get; set; }
-        private double _Monto_A_Pagar;
-        public string Nombre_Paquete { get; set; }
-        public string Fotografia { get; set; }
+        public string String_Fotografia { get; set; }
         public string Nombre_Fotografia() {
-            return Nombre_Paquete + '-' + Guid.NewGuid().ToString();
+            return Contenido_Paquete + '-' + Guid.NewGuid().ToString();
         }
-        public Tipo_Paquete Tipo_Paquete { get; set; }
-        public double Peso_Paquete { get; set; }
-        public DateTime Fecha_Entrega { get; set; }
-        //Envio_Especial significa un envío rápido, con una mayor tarifa al precio normal
-        public bool Envio_Especial { get; set; }
+        public string Contenido_Paquete { get; set; }
+        public Tipo_Contenido Tipo_Contenido { get; set; }
+        public string Estado_Paquete { get; set; }
+        public bool Envio_Prioridad { get; set; }
+        public double Peso_Contenido { get; set; }
+        //Envio_Prioridad significa un envío rápido, con una mayor tarifa al precio normal
+        private double _Monto_A_Pagar;
         public double Monto_Pagar_Function()
         {
             double Limite_Peso;
             double Tarifa;
-            if(Envio_Especial == true)
+            if(Envio_Prioridad == true)
             {
-                Tarifa = 30.79;
-                Limite_Peso = 25;
-                if (Peso_Paquete > Limite_Peso)
+                Tarifa = 22.79;
+                Limite_Peso = 35;
+                if (Peso_Contenido > Limite_Peso)
                 {
-                    for (int i = 0; i <= Peso_Paquete; i++)
+                    for (int i = 0; i <= Peso_Contenido; i++)
                     {
                         if(i > Limite_Peso)
-                            Tarifa += 1;
+                            Tarifa += 0.63;
                     }
                     return Math.Round(Tarifa, 2);
                 }
@@ -45,14 +45,14 @@ namespace ApplicationCore.Entities
             }
             else
             {
-                Tarifa = 15.99;
-                Limite_Peso = 12;
-                if (Peso_Paquete > Limite_Peso)
+                Tarifa = 9.99;
+                Limite_Peso = 20;
+                if (Peso_Contenido > Limite_Peso)
                 {
-                    for (int i = 0; i <= Peso_Paquete; i++)
+                    for (int i = 0; i <= Peso_Contenido; i++)
                     {
                         if(i > Limite_Peso)
-                            Tarifa += 1.52;
+                            Tarifa += 0.83;
                     }
                     return Math.Round(Tarifa, 2);
                 }
@@ -73,5 +73,7 @@ namespace ApplicationCore.Entities
                 _Monto_A_Pagar = Monto_Pagar_Function();
             } 
         }
+        public bool Estado_Pago { get; set; }
+        public DateTime Fecha_Entrega { get; set; }
     }
 }

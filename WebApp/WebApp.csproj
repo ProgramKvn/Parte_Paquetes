@@ -6,7 +6,52 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\NewFolder1\**" />
+    <Compile Remove="Areas\NewFolder2\**" />
+    <Compile Remove="Areas\NewFolder3\**" />
+    <Compile Remove="Areas\NewFolder\**" />
+    <Compile Remove="wwwroot\Uploads\**" />
+    <Content Remove="Areas\NewFolder1\**" />
+    <Content Remove="Areas\NewFolder2\**" />
+    <Content Remove="Areas\NewFolder3\**" />
+    <Content Remove="Areas\NewFolder\**" />
+    <Content Remove="wwwroot\Uploads\**" />
+    <EmbeddedResource Remove="Areas\NewFolder1\**" />
+    <EmbeddedResource Remove="Areas\NewFolder2\**" />
+    <EmbeddedResource Remove="Areas\NewFolder3\**" />
+    <EmbeddedResource Remove="Areas\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\Uploads\**" />
+    <None Remove="Areas\NewFolder1\**" />
+    <None Remove="Areas\NewFolder2\**" />
+    <None Remove="Areas\NewFolder3\**" />
+    <None Remove="Areas\NewFolder\**" />
+    <None Remove="wwwroot\Uploads\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Administrador\Pages\Create.cshtml.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Estado_Espec.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Index1.cshtml.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Index2.cshtml.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Paquetes_Entregados.cshtml.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Paquetes_En_Entrega.cshtml.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Paquetes_Rechazados.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Paquetes_Rechazados.cshtml.cs" />
+    <Compile Remove="Areas\Administrador\Pages\Realizar_Pago.cshtml.cs" />
+    <Compile Remove="Areas\Paquetes\Pages\Pago_Paquete.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Administrador\Pages\Create.cshtml" />
+    <Content Remove="Areas\Administrador\Pages\Index1.cshtml" />
+    <Content Remove="Areas\Administrador\Pages\Index2.cshtml" />
+    <Content Remove="Areas\Administrador\Pages\Paquetes_Entregados.cshtml" />
+    <Content Remove="Areas\Administrador\Pages\Paquetes_En_Entrega.cshtml" />
+    <Content Remove="Areas\Administrador\Pages\Paquetes_Rechazados.cshtml" />
+    <Content Remove="Areas\Administrador\Pages\Realizar_Pago.cshtml" />
     <Content Remove="Areas\Paquetes\Pages\Mostrar_Detalles.cshtml" />
+    <Content Remove="Areas\Paquetes\Pages\Pago_Paquete.cshtml" />
+    <Content Remove="wwwroot\css\StyleSheet.css" />
     <Content Remove="wwwroot\js\Edit.cshtml" />
     <Content Remove="wwwroot\js\JS_Global.js" />
   </ItemGroup>
@@ -28,10 +73,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\Uploads\Paquetes\" />
   </ItemGroup>
 
 </Project>

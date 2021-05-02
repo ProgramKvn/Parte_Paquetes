@@ -9,8 +9,9 @@ namespace ApplicationCore.Specification.Filters
 {
     public class Paquete_Filter : BaseFilter
     {
-        public string Nombre_Paquete { get; set; }
-        public Tipo_Paquete Tipo_Paquete { get; set; }
-        public float Peso_Paquete { get; set; }
+        public string Contenido_Paquete { get; set; }
+        public Tipo_Contenido Tipo_Contenido { get; set; }
+        public string Estado_Paquete { get; set; }
+        public float Peso_Contenido { get; set; }
     }
 }

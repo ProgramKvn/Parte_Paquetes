@@ -13,155 +13,276 @@
 <!--Contenido principal-->
 <!--Parte superior del contenido-->
 <section class="content-header">
-    <h4 style="text-align: right;">Adminsitrar paquetes.</h4>
+    <h4 style="text-align: right;">
+        Administrador de paquetes.
+    </h4>
     <div>
         <a asp-area="Paquetes" asp-page="Create" class="btn btn-outline-success">
             <i class="fas fa-plus-circle"></i>
-            Nueva solicitud de envío
+            Agregar un nuevo envío
         </a>
     </div>
-</section>
-<section class="content">
-    <div>
-        <!--En esta tabla se muestran los datos obtenidos por GET-->
-        <table class="table table-dark table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Imagen</th>
-                    <th scope="col">Contenido</th>
-                    <th scope="col">Tipo de Envío</th>
-                    <th scope="col">Monto a cancelar</th>
-                    <th scope="col"> Información</th>
-                    <th scope="col">Eliminar</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Paquetes.Count > 0)
-                {
-                    @foreach (var item in Model.Paquetes)
-                    {
-                        <tr>
-                            <th scope="row">
-                                <img src="@item.Fotografia" style="width: 100px;" class="rounded" alt="@item.Nombre_Fotografia()" />
-                            </th>
-                            <td>@item.Nombre_Paquete</td>
-                            <td>
-                                @if (@item.Envio_Especial == true)
-                                {
-                                    <span class="badge bg-warning">
-                                        <i class="fas fa-shipping-fast"></i>
-                                        Prioridad de envío
-                                    </span> 
-                                    }
-                                else
-                                {
-                                    <span class="badge bg-light text-dark">
-                                        <i class="fas fa-truck"></i>
-                                        Envío normal
-                                    </span>
-                                    }
-                            </td>
-                            <td>$ @item.Monto_Pagar_Prop</td>
-                            <td>
-                                <button type="button" id="Mostrar_Info" onclick="Users('?handler=Select&Id=@item.Id')" class="btn btn-outline-info">
-                                    <i class="fas fa-eye"></i>
-                                    Mostrar detalles
-                                </button>
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-danger" onclick="Eliminar('?handler=Delete&Id=@item.Id')">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
+    <div class="card-body table-responsive-md p-3">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <select class="form-control" id="sizePage" style="width:75px;">
+                        @foreach (var item in Model.UIPagination.SizesPages)
+                        {
+                            if (Model.UIPagination.GetSizePage == item)
+                            {
+                                <option selected value="@item">@item</option>
+                            }
+                            else
+                            {
+                                <option value="@item">@item</option>
+                            }
                         }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="12" class="text-center">No se encontraron registros</td>
-                    </tr>}
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <!--Este modal alberga la información obtenida por JSON-->
-        <div>
-            <div class="modal fade" id="Modal_Detalles" tabindex="-1" aria-labelledby="ModalDetallesLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ModalDetallesLabel">Detalles del paquete</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!--Se mostrará la información por medio de INPUTs-->
-                            <div class="row mb-4">
-                                <div class="col">
-                                    <label class="text-muted">Contenido</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-box"></i>
-                                        </span>
-                                        <input type="text" class="form-control" id="Nombre_Paquete" aria-describedby="nombre-paquete" disabled />
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label class="text-muted">Tipo de contenido</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-tv"></i>
-                                        </span>
-                                        <input type="text" class="form-control" id="Tipo_Paquete" aria-describedby="tipo-paquete" disabled />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-4">
-                                <div class="col">
-                                    <label class="text-muted">Peso del paquete</label>
-                                    <div class="input-group">
-                                        <input class="form-control" id="Peso_Paquete" disabled />
-                                        <span class="input-group-text">
-                                            lb
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label class="text-muted">Fecha de entrega</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar"></i>
-                                        </span>
-                                        <input type="datetime" class="form-control" id="Fecha_Entrega" disabled />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-4 form-check">
-                                <div class="col">
-                                    <input type="checkbox" class="form-check-input" id="Envio_Especial" disabled />
-                                    <label class='text-muted' id="Label_Check"></label>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col">
-                                    <label class="text-muted">Monto a cancelar</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">$</span>
-                                        <input class="form-control" id="Monto_Pagar" disabled />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer" style="display: flex; justify-content: space-around;">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3 offset-md-7">
+                <div class="form-group float-lg-right">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Buscar" id="searchString" value="@Model.UIPagination.SearchString">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
+<section class="content">
+    <div>
+        <!--Card para mostrar los datos obtenidos por GET-->
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Contenido del paquete</th>
+                    <th scope="col">Tipo de envío</th>
+                    <th scope="col">Estado del envío</th>
+                    <th scope="col">Estado del pago</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Paquetes.Count > 0)
+                {
+    @foreach (var item in Model.Paquetes)
+    {
+<tr>
+    <th scope="row">
+        <img style="width: 100px;" class="rounded" src="@item.String_Fotografia" alt="@item.Nombre_Fotografia()" />
+    </th>
+    <td>@item.Contenido_Paquete</td>
+    <td>
+        @if (@item.Envio_Prioridad == true)
+        {
+<span class="badge bg-warning">
+    <i class="fas fa-shipping-fast"></i>
+    Prioridad de envío
+</span> }
+else
+{
+<span class="badge bg-teal text-dark">
+    <i class="fas fa-truck"></i>
+    Envío normal
+</span>}
+    </td>
+    <td>
+        @if (@item.Estado_Paquete == "Pendiente")
+        {
+        <span class="badge bg-light">
+            @item.Estado_Paquete
+        </span> }
+        else if (@item.Estado_Paquete == "En chequeo")
+        {
+        <span class="badge bg-primary">
+            @item.Estado_Paquete
+        </span> }
+        else if (@item.Estado_Paquete == "Rechazado")
+        {
+        <span class="badge bg-danger">
+            @item.Estado_Paquete
+        </span> }
+        else if (@item.Estado_Paquete == "En progreso")
+        {
+        <span class="badge bg-warning text-dark">
+            @item.Estado_Paquete
+        </span> }
+        else if (@item.Estado_Paquete == "Envio finalizado")
+        {
+        <span class="badge bg-success">
+            @item.Estado_Paquete
+        </span>}
+    </td>
+    <td>
+        @if (@item.Estado_Pago == true)
+        {
+<span class="badge bg-light">
+    <i class="fas fa-truck"></i>
+    Pago realizado
+</span> }
+else
+{
+<a class="btn btn-danger" style="width: 100%" onclick="Mostrar_ModalPago(@item.Id)">
+    <i class="fas fa-truck"></i>
+    Realizar pago
+</a>}
+    </td>
+    <td>
+        <button type="button" class="btn btn-outline-info" onclick="Detalles('?handler=Select&Id=@item.Id')">
+            <i class="fas fa-eye"></i>
+            <b>Ver más detalles</b>
+        </button>
+    </td>
+    <td>
+        <a class="btn btn-outline-danger" onclick="Eliminar('?handler=Eliminar&Id=@item.Id')">
+            <i class="fas fa-trash"></i>
+        </a>
+    </td>
+</tr>} }
+else
+{
+<tr>
+    <td colspan="12" class="text-center">No se han encontrado registros.</td>
+</tr>}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer clearfix">
+        <div class="float-left">
+            <text>Mostrando registros del @(Model.UIPagination.GetStartIndex + 1) al @(Model.UIPagination.GetEndIndex + 1) de un total de @Model.UIPagination.GetTotalItems registros</text>
 
+        </div>
+        <ul class="pagination pagination-md m-0 float-right">
+            @if (Model.Paquetes.Count > 0)
+            {
+                @if (Model.UIPagination.GetPreviousPage > 0)
+                {
+                    <li class="page-item"><a class="page-link" data-page="@Model.UIPagination.GetPreviousPage"><i class="fas fa-angle-double-left"></i></a></li>
+                }
+
+                @foreach (var item in Model.UIPagination.GetPages)
+                {
+                    @if (item == Model.UIPagination.GetCurrentPage)
+                    {
+                        <li class="page-item active"><a class="page-link" data-page="@item">@item</a></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" data-page="@item">@item</a></li>
+                    }
+
+                }
+
+                @if (Model.UIPagination.GetNextPage <= Model.UIPagination.GetTotalPages)
+                {
+                    <li class="page-item"><a class="page-link" data-page="@Model.UIPagination.GetNextPage"><i class="fas fa-angle-double-right"></i></a></li>
+                }
+            }
+        </ul>
+    </div>
+    <div>
+        <div class="modal fade" id="Modal_Detalles" tabindex="-1" aria-labelledby="ModalDetallesLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalDetallesLabel">Detalles del paquete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!--Se mostrará la información por medio de INPUTs-->
+                        <div class="row mb-4">
+                            <div class="col-sm-12 text-center">
+                                <img id="IMG" style="width: 100px;" />
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label class="text-muted">Contenido del paquete</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-box-open"></i>
+                                    </span>
+                                    <input type="text" class="form-control" id="nombre_Contenido" aria-describedby="nombre-contenido" disabled />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="text-muted">Tipo de contenido</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-tv"></i>
+                                    </span>
+                                    <input type="text" class="form-control" id="tipo_Contenido" aria-describedby="tipo-contenido" disabled />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label class="text-muted">Peso del paquete</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="peso_Contenido" disabled />
+                                    <span class="input-group-text">
+                                        lb
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="text-muted">Monto a cancelar</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input class="form-control" id="Monto_Pagar" disabled />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label class="text-muted">Fecha de entrega</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar"></i>
+                                    </span>
+                                    <input type="datetime" class="form-control" id="Fecha_Entrega" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div id="div_check" class="col">
+                                <label class='text-muted' id="Label_Check"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="display: flex; justify-content: space-around;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="modal fade" id="Modal_Pago" tabindex="-1" aria-labelledby="Modal_PagoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="Modal_PagoLabel">Detalles del paquete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="footer-form">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 @section Scripts{
@@ -185,7 +306,7 @@
                     filterPaginate("searchString", $(this).val());
                 }
             });
-            Users = (url) => {
+            Detalles = (url) => {
                 $.ajax({
                     type: "GET",
                     url: url,
@@ -196,36 +317,37 @@
                     },
                     success: function (data) {
                         const { info } = data;
-                        const { id, nombre_Paquete, tipo_Paquete, peso_Paquete, fecha_Entrega, envio_Especial, monto_Pagar_Prop} = info;
-
-                        $("#Nombre_Paquete").val(nombre_Paquete);
-
-                        switch (tipo_Paquete) {
+                        const { nombre_Fotografia } = data;
+                        const { id, contenido_Paquete, string_Fotografia, tipo_Contenido, peso_Contenido, fecha_Entrega, envio_Prioridad, monto_Pagar_Prop } = info;
+                        $("#IMG").attr("src", string_Fotografia);
+                        $("#IMG").attr("alt", nombre_Fotografia);
+                        $("#nombre_Contenido").val(contenido_Paquete);
+                        switch (tipo_Contenido) {
                             case 0:
-                                $("#Tipo_Paquete").val("Accesorio");
+                                $("#tipo_Contenido").val("Accesorio");
                                 break;
                             case 1:
-                                $("#Tipo_Paquete").val("Decoración");
+                                $("#tipo_Contenido").val("Decoración");
                                 break;
                             case 2:
-                                $("#Tipo_Paquete").val("Electrodoméstico");
+                                $("#tipo_Contenido").val("Electrodoméstico");
                                 break;
                             case 3:
-                                $("#Tipo_Paquete").val("Mueble");
+                                $("#tipo_Contenido").val("Mueble");
                                 break;
                             case 4:
-                                $("#Tipo_Paquete").val("Vestimenta");
+                                $("#tipo_Contenido").val("Vestimenta");
                                 break;
                         }
 
-                        $("#Peso_Paquete").val(peso_Paquete);
+                        $("#peso_Contenido").val(peso_Contenido);
                         $("#Fecha_Entrega").val(fecha_Entrega);
 
-                        if (envio_Especial == true) {
-                            $("#Envio_Especial").prop('checked', envio_Especial);
+                        if (envio_Prioridad == true) {
+                            $("#div_check").attr('class', 'badge bg-warning');
                             $("#Label_Check").text(`Con prioridad de envío`);
                         } else {
-                            $("#Envio_Especial").prop('checked', envio_Especial);
+                            $("#div_check").attr('class', 'badge bg-teal');
                             $("#Label_Check").text(`Sin prioridad de envío`);
                         }
 
@@ -235,25 +357,6 @@
                      },
                 })
             }
-            function Mostrar_Modal(id) {
-                let url = new URL(window.location.href);
-                let urlEdit = url.origin + url.pathname + `/Update?Id=${id}`;
-                $(".modal-footer")
-                    .append(`
-                            <a href="${urlEdit}" class="btn btn-outline-success">
-                                <i class="fas fa-pencil-alt"></i>
-                                Editar
-                            </a>
-                            <button class='btn btn-outline-danger' data-bs-dismiss="modal">
-                            <i class="fas fa-times-circle"></i>
-                                Cerrar detalles
-                            </button>`
-                        );
-                $("#Modal_Detalles").modal("show");
-            }
-            $('#Modal_Detalles').on('hidden.bs.modal', function () {
-                $(".modal-footer").empty();
-            })
             Eliminar = (url) => {
                 Swal.fire({
                     title: '¿Deseas eliminar este registro?',
@@ -296,6 +399,59 @@
                 })
                 return false;
             }
+            Pagar = (url) => {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
+                    },
+                    success: function (res) {
+                        if (res.pago) {
+                            Swal.fire({
+                                title: 'Pago realizado.',
+                                subtitle: 'Ha realizado su pago con éxito.',
+                                icon: 'success',
+                                timer: 2000
+                            })
+                            setTimeout(function () { location.reload(); }, 2000);
+                        }
+                    }
+                });
+            }
+            Mostrar_ModalPago = (Id) =>
+            {
+                $("#Modal_Pago").modal("show");
+                $(".footer-form").append(`
+                    <button type="button" class="btn btn-outline-success" onclick="Pagar('?handler=Pagar&Id=${Id}')">
+                        Aceptar pago
+                    </button>
+                `);
+            }
+            $("#Modal_Pago").on('hidden.bs.modal', function () {
+                $(".footer-form").empty();
+            });
+            function Mostrar_Modal(id) {
+                let url = new URL(window.location.href);
+                let urlEdit = url.origin + url.pathname + `/Update?Id=${id}`;
+                $(".modal-footer")
+                    .append(`
+                            <a href="${urlEdit}" class="btn btn-outline-success">
+                                <i class="fas fa-pencil-alt"></i>
+                                Editar
+                            </a>
+                            <button class='btn btn-outline-danger' data-bs-dismiss="modal">
+                            <i class="fas fa-times-circle"></i>
+                                Cerrar detalles
+                            </button>`
+                        );
+                $("#Modal_Detalles").modal("show");
+            }
+            $('#Modal_Detalles').on('hidden.bs.modal', function () {
+                $(".modal-footer").empty();
+            })
         });
     </script>
     @await Component.InvokeAsync("Notyf");

@@ -15,19 +15,23 @@ namespace Infraestructure.Data.Config
         {
             builder.ToTable("Paquetes");
             builder.HasKey(c => c.Id);
-            builder.Property(c => c.Nombre_Paquete)
+            builder.Property(c => c.Contenido_Paquete)
                 .HasMaxLength(150)
                 .IsRequired();
-            builder.Property(c => c.Fotografia);
-            builder.Property(c => c.Tipo_Paquete)
+            builder.Property(c => c.String_Fotografia);
+            builder.Property(c => c.Tipo_Contenido)
                 .IsRequired();
-            builder.Property(c => c.Peso_Paquete)
+            builder.Property(c => c.Peso_Contenido)
                 .IsRequired();
-            builder.Property(c => c.Fecha_Entrega)
-                .IsRequired();
-            builder.Property(c => c.Envio_Especial)
+            builder.Property(c => c.Estado_Paquete)
+                .HasDefaultValue("Pendiente");
+            builder.Property(c => c.Envio_Prioridad)
                 .IsRequired();
             builder.Property(c => c.Monto_Pagar_Prop)
+                .IsRequired();
+            builder.Property(c => c.Estado_Pago)
+                .HasDefaultValue(false);
+            builder.Property(c => c.Fecha_Entrega)
                 .IsRequired();
         }
     }

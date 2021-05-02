@@ -34,14 +34,14 @@ namespace WebApp.Areas.Paquetes.Pages
             {
                 if (ModelState.IsValid)
                 {
-                    Paquete.Fotografia = await _fileUploadService.LocalStorage(Subir_Archivo, Paquete.Nombre_Fotografia(), "paquetes");
+                    Paquete.String_Fotografia = await _fileUploadService.LocalStorage(Subir_Archivo, Paquete.Nombre_Fotografia(), "paquetes");
                     await _repository.AddAsync(Paquete);
                     _INotyfService.Success("Solicitud enviada de manera exitosa");
                 }
                 else
                 {
                     _INotyfService.Warning("Su formulario no cumple con los requisitos");
-                    return Page();
+                    return RedirectToPage("Index");
                 }
                 return RedirectToPage("Index");
             }

@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model WebApp.Areas.Paquetes.Pages.UpdateModel
 @{
-    ViewData["Title"] = $"Actualizar datos del paquete {Model.Paquete.Nombre_Paquete}";
+    ViewData["Title"] = $"Actualizar datos del paquete {Model.Paquete.Contenido_Paquete}";
     Layout = "_Layout";
 }
 @section Styles {
@@ -32,20 +32,20 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-camera-retro"></i>
                                 </span>
-                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="Subir_Archivo" class="form-control"/>
+                                <input type="file" accept="image/png, image/jpeg, image/jpg" name="Subir_Archivo" class="form-control" required/>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-4">
-                            <label class="text-muted">Contenido</label>
+                            <label class="text-muted">Contenido del paquete</label>
                             <div class="input-group">
                                 <span class="input-group-text">
-                                    <i class="fas fa-box"></i>
+                                    <i class="fas fa-box-open"></i>
                                 </span>
-                                <input type="text" class="form-control" asp-for="Paquete.Nombre_Paquete" placeholder="El texto debe de ser autodescriptivo"/>
+                                <input type="text" class="form-control" asp-for="Paquete.Contenido_Paquete" placeholder="El texto debe de ser autodescriptivo"/>
                             </div>
-                            <span asp-validation-for="Paquete.Nombre_Paquete" class="text-danger"></span>
+                            <span asp-validation-for="Paquete.Contenido_Paquete" class="text-danger"></span>
                         </div>
                         <div class="col mb-4">
                             <label class="text-muted">Tipo de contenido</label>
@@ -53,15 +53,15 @@
                                 <span class="input-group-text">
                                     <i class="fas fa-tv"></i>
                                 </span>
-                                <select class="form-select" asp-for="Paquete.Tipo_Paquete">
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Accesorio">@ApplicationCore.Enum.Tipo_Paquete.Accesorio</option>
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Decoracion">@ApplicationCore.Enum.Tipo_Paquete.Decoracion</option>
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Electrodomestico">@ApplicationCore.Enum.Tipo_Paquete.Electrodomestico</option>
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Muebles">@ApplicationCore.Enum.Tipo_Paquete.Muebles</option>
-                                    <option value="@ApplicationCore.Enum.Tipo_Paquete.Vestimenta">@ApplicationCore.Enum.Tipo_Paquete.Vestimenta</option>
+                                <select class="form-select" asp-for="Paquete.Tipo_Contenido">
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Accesorio">@ApplicationCore.Enum.Tipo_Contenido.Accesorio</option>
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Decoracion">@ApplicationCore.Enum.Tipo_Contenido.Decoracion</option>
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Electrodomestico">@ApplicationCore.Enum.Tipo_Contenido.Electrodomestico</option>
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Muebles">@ApplicationCore.Enum.Tipo_Contenido.Muebles</option>
+                                    <option value="@ApplicationCore.Enum.Tipo_Contenido.Vestimenta">@ApplicationCore.Enum.Tipo_Contenido.Vestimenta</option>
                                 </select>
                             </div>
-                            <span asp-validation-for="Paquete.Tipo_Paquete" class="text-danger"></span>
+                            <span asp-validation-for="Paquete.Tipo_Contenido" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -69,24 +69,24 @@
                             <label class="text-muted">Fecha de entrega</label>
                             <div class="input-group">
                                 <input class="form-control" asp-for="Paquete.Fecha_Entrega" />
-                                <span asp-validation-for="Paquete.Fecha_Entrega" class="text-danger"></span>
                             </div>
+                            <span asp-validation-for="Paquete.Fecha_Entrega" class="text-danger"></span>
                         </div>
                         <div class="col mb-4">
                             <label class="text-muted">Peso del paquete</label>
                             <div class="input-group">
-                                <input class="form-control" asp-for="Paquete.Peso_Paquete" placeholder="Expresa la cantidad en libras"/>
+                                <input class="form-control" asp-for="Paquete.Peso_Contenido" placeholder="Expresa la cantidad en libras"/>
                                 <span class="input-group-text">
                                     lb
                                 </span>
                             </div>
-                            <span asp-validation-for="Paquete.Peso_Paquete" class="text-danger"></span>
+                            <span asp-validation-for="Paquete.Peso_Contenido" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row form-check">
                         <div class="col mb-4">
-                            <input type="checkbox" id="Check_Box" class="form-check-input" asp-for="Paquete.Envio_Especial"/>
-                            <span asp-validation-for="Paquete.Envio_Especial" class="text-danger"></span>
+                            <input type="checkbox" id="Check_Box" class="form-check-input" asp-for="Paquete.Envio_Prioridad"/>
+                            <span asp-validation-for="Paquete.Envio_Prioridad" class="text-danger"></span>
                             <label for="Check_Box" class="text-muted">Activar prioridad de envío</label>
                         </div>
                     </div>

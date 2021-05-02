@@ -12,12 +12,13 @@ namespace ApplicationCore.Entities.Validator
         public Paquete_Validator()
         {
             RuleFor(x => x.Id).NotNull();
-            RuleFor(x => x.Nombre_Paquete).NotNull().WithMessage("Este campo no puede enviarse vacío.")
+            RuleFor(x => x.Contenido_Paquete).NotNull().WithMessage("Este campo no puede enviarse vacío.")
                 .Length(2, 150).WithMessage("Este campo debe de contener de 2 a 255 caracteres.");
-            RuleFor(x => x.Tipo_Paquete).IsInEnum().WithMessage("Este campo no puede enviarse vacío.");
-            RuleFor(x => x.Peso_Paquete).NotNull().WithMessage("Este campo no puede enviarse vacío.");
-            RuleFor(x => x.Envio_Especial).NotNull().WithMessage("Este campo no puede enviarse vacío.");
-            RuleFor(x => x.Fecha_Entrega).NotNull().WithMessage("Este campo no puede enviarse vacío.");
+            RuleFor(x => x.Tipo_Contenido).IsInEnum().WithMessage("Este campo no puede enviarse vacío.");
+            RuleFor(x => x.Peso_Contenido).NotNull().WithMessage("Este campo no puede enviarse vacío.");
+            RuleFor(x => x.Envio_Prioridad).NotNull().WithMessage("Este campo no puede enviarse vacío.");
+            RuleFor(x => x.Fecha_Entrega)
+                .GreaterThan(DateTime.Now).WithMessage("No es posible aceptar una fecha menor a la fecha actual.");
             RuleFor(x => x.Monto_Pagar_Prop).NotNull().WithMessage("Este campo no puede enviarse vacío.");
         }
     }

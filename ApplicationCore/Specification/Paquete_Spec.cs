@@ -13,13 +13,13 @@ namespace ApplicationCore.Specification
     {
         public Paquete_Spec(Paquete_Filter filter)
         {
-            Query.OrderBy(x => x.Nombre_Paquete).ThenByDescending(x => x.Id);
+            Query.OrderBy(x => x.Envio_Prioridad);
             if (filter.IsPagingEnabled)
                 Query.Skip(PaginationHelper.CalculateSkip(filter))
                     .Take(PaginationHelper.CalculateTake(filter));
-            if (!string.IsNullOrEmpty(filter.Nombre_Paquete))
+            if (!string.IsNullOrEmpty(filter.Contenido_Paquete))
             {
-                Query.Search(x => x.Nombre_Paquete, "%" + filter.Nombre_Paquete + "%");
+                Query.Search(x => x.Contenido_Paquete, "%" + filter.Contenido_Paquete + "%");
             }
         }
     }

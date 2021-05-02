@@ -1,0 +1,116 @@
+﻿@page
+@model WebApp.Areas.Administrador.Pages.CreateModel
+@{
+}
+@{ ViewData["Title"] = "Realizar pago";
+    Layout = "_Layout";
+}
+@section Styles{
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="~/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+}
+<section>
+    <!--Formulario-->
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Realizar pago.</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-action="Create" autocomplete="off" enctype="multipart/form-data">
+                <div class="row mb-4">
+                    <div class="col">
+                        <label>Fotografía del paquete</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-camera-retro"></i>
+                            </span>
+                            <input type="file" accept="image/png, image/jpeg, image/jpg" name="Subir_Archivo" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <label>Contenido del paquete</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-box-open"></i>
+                            </span>
+                            <input type="text" class="form-control" asp-for="Paquete.Contenido_Paquete" placeholder="El texto debe de ser autodescriptivo" />
+                        </div>
+                        <span asp-validation-for="Paquete.Contenido_Paquete" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label>Tipo de contenido</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-tv"></i>
+                            </span>
+                            <select class="form-select" asp-for="Paquete.Tipo_Contenido">
+                                <option value="@ApplicationCore.Enum.Tipo_Contenido.Accesorio">@ApplicationCore.Enum.Tipo_Contenido.Accesorio</option>
+                                <option value="@ApplicationCore.Enum.Tipo_Contenido.Decoracion">@ApplicationCore.Enum.Tipo_Contenido.Decoracion</option>
+                                <option value="@ApplicationCore.Enum.Tipo_Contenido.Electrodomestico">@ApplicationCore.Enum.Tipo_Contenido.Electrodomestico</option>
+                                <option value="@ApplicationCore.Enum.Tipo_Contenido.Muebles">@ApplicationCore.Enum.Tipo_Contenido.Muebles</option>
+                                <option value="@ApplicationCore.Enum.Tipo_Contenido.Vestimenta">@ApplicationCore.Enum.Tipo_Contenido.Vestimenta</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Paquete.Tipo_Contenido" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <label>Fecha de entrega</label>
+                        <div class="input-group">
+                            <input class="form-control" asp-for="Paquete.Fecha_Entrega" />
+                        </div>
+                        <span asp-validation-for="Paquete.Fecha_Entrega" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <label>Peso del paquete</label>
+                        <div class="input-group">
+                            <input class="form-control" asp-for="Paquete.Peso_Contenido" placeholder="Expresa la cantidad en libras" />
+                            <span class="input-group-text">
+                                lb
+                            </span>
+                        </div>
+                        <span asp-validation-for="Paquete.Peso_Contenido" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-4 form-check">
+                    <div class="col">
+                        <input type="checkbox" class="form-check-input" asp-for="Paquete.Envio_Prioridad" />
+                        <label asp-for="Paquete.Envio_Prioridad">Activar envío con prioridad.</label>
+                        <span asp-validation-for="Paquete.Envio_Prioridad" class="text-danger"></span>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-around;">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="fas fa-share-square"></i>
+                        Enviar solicitud
+                    </button>
+                    <button type="reset" class='btn btn-outline-warning'>
+                        <i class="fas fa-dumpster"></i>
+                        Vaciar campos
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <!-- Pager -->
+    <script src="~/js/pager.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="~/plugins/sweetalert2/sweetalert2.min.js"></script>
+    @await Component.InvokeAsync("Notyf");
+}
